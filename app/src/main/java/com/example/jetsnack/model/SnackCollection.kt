@@ -53,29 +53,9 @@ private val tastyTreats = SnackCollection(
     id = 1L,
     name = "Android's picks",
     type = CollectionType.Highlight,
-    snacks = snacks.subList(0, 13)
+    snacks = snacks.subList(0, 3)
 )
 
-private val popular = SnackCollection(
-    id = 2L,
-    name = "Popular on Jetsnack",
-    snacks = snacks.subList(14, 19)
-)
-
-private val wfhFavs = tastyTreats.copy(
-    id = 3L,
-    name = "WFH favourites"
-)
-
-private val newlyAdded = popular.copy(
-    id = 4L,
-    name = "Newly Added"
-)
-
-private val exclusive = tastyTreats.copy(
-    id = 5L,
-    name = "Only on Jetsnack"
-)
 
 private val also = tastyTreats.copy(
     id = 6L,
@@ -88,22 +68,17 @@ private val inspiredByCart = tastyTreats.copy(
 )
 
 private val snackCollections = listOf(
-    tastyTreats,
-    popular,
-    wfhFavs,
-    newlyAdded,
-    exclusive
+    tastyTreats
 )
 
 private val related = listOf(
-    also,
-    popular
+    also
 )
 
 private val cart = listOf(
-    OrderLine(snacks[4], 2),
-    OrderLine(snacks[6], 3),
-    OrderLine(snacks[8], 1)
+    OrderLine(snacks[2], 2),
+    OrderLine(snacks[1], 3),
+    OrderLine(snacks[0], 1)
 )
 
 @Immutable

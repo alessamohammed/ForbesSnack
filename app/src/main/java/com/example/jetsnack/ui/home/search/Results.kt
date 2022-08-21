@@ -133,7 +133,7 @@ private fun SearchResult(
             }
         )
         Text(
-            text = snack.tagline,
+            text = snack.name,
             style = MaterialTheme.typography.body1,
             color = JetsnackTheme.colors.textHelp,
             modifier = Modifier.constrainAs(tag) {
@@ -154,7 +154,7 @@ private fun SearchResult(
                 }
         )
         Text(
-            text = formatPrice(snack.price),
+            text = "csc",
             style = MaterialTheme.typography.subtitle1,
             color = JetsnackTheme.colors.textPrimary,
             modifier = Modifier.constrainAs(price) {

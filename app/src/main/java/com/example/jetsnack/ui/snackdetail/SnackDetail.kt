@@ -262,7 +262,7 @@ private fun Title(snack: Snack, scrollProvider: () -> Int) {
             modifier = HzPadding
         )
         Text(
-            text = snack.tagline,
+            text = snack.Country,
             style = MaterialTheme.typography.subtitle2,
             fontSize = 20.sp,
             color = JetsnackTheme.colors.textHelp,
@@ -270,7 +270,7 @@ private fun Title(snack: Snack, scrollProvider: () -> Int) {
         )
         Spacer(Modifier.height(4.dp))
         Text(
-            text = formatPrice(snack.price),
+            text = "jjnjn",
             style = MaterialTheme.typography.h6,
             color = JetsnackTheme.colors.textPrimary,
             modifier = HzPadding

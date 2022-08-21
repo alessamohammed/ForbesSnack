@@ -77,4 +77,17 @@
     <string name="alphabetical">Alphabetical</string>
     <string name="close">Close</string>
 
+    <!-- Billionaires item -->
+    // Rank
+    <string name="billionaires_rank">Rank</string>
+    // Age
+    <string name="billionaires_age">Age</string>
+    // Net Worth
+    <string name="billionaires_net_worth">Net Worth</string>
+    // Residence
+    <string name="billionaires_residence">Residence</string>
+    // Source
+    <string name="billionaires_source">Source</string>
+
+
 </resources>

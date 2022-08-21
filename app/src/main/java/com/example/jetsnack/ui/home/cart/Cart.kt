@@ -260,7 +260,7 @@ private fun CartContent(
         }
         item {
             SummaryItem(
-                subtotal = orderLines.map { it.snack.price * it.count }.sum(),
+                subtotal = orderLines.map {1L * it.count }.sum(),
                 shippingCosts = 369
             )
         }
@@ -335,20 +335,7 @@ fun CartItem(
                 contentDescription = stringResource(R.string.label_remove)
             )
         }
-        Text(
-            text = snack.tagline,
-            style = MaterialTheme.typography.body1,
-            color = JetsnackTheme.colors.textHelp,
-            modifier = Modifier.constrainAs(tag) {
-                linkTo(
-                    start = image.end,
-                    startMargin = 16.dp,
-                    end = parent.end,
-                    endMargin = 16.dp,
-                    bias = 0f
-                )
-            }
-        )
+
         Spacer(
             Modifier
                 .height(8.dp)
@@ -356,20 +343,7 @@ fun CartItem(
                     linkTo(top = tag.bottom, bottom = price.top)
                 }
         )
-        Text(
-            text = formatPrice(snack.price),
-            style = MaterialTheme.typography.subtitle1,
-            color = JetsnackTheme.colors.textPrimary,
-            modifier = Modifier.constrainAs(price) {
-                linkTo(
-                    start = image.end,
-                    end = quantity.start,
-                    startMargin = 16.dp,
-                    endMargin = 16.dp,
-                    bias = 0f
-                )
-            }
-        )
+
         QuantitySelector(
             count = orderLine.count,
             decreaseItemCount = { decreaseItemCount(snack.id) },
