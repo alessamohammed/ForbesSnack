@@ -197,124 +197,119 @@ private fun HighlightSnackItem(
                 color = JetsnackTheme.colors.textSecondary,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
-            Column(modifier = Modifier.fillMaxWidth()) {
-                Row (horizontalArrangement = Arrangement.SpaceBetween) {
+            Row(modifier = Modifier
+                .fillMaxSize(),
+                horizontalArrangement = Arrangement.SpaceBetween)
+            {
+                        Column (modifier = Modifier.padding(horizontal = 16.dp)) {
+                            Row {
+                                Text(
+                                    text = stringResource(R.string.billionaires_rank) + ": ",
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
+                                    style = MaterialTheme.typography.body1,
+                                    color = Color.Black,
+                                    textAlign = TextAlign.Start
+                                )
 
-                    Column(
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp),
-                        horizontalAlignment = Alignment.Start
-                    ) {
-                        Row {
-                            Text(
-                                text = stringResource(R.string.billionaires_rank) + ": ",
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                                style = MaterialTheme.typography.body1,
-                                color = Color.Black,
-                                textAlign = TextAlign.Start,
-                            )
-                            Text(
-                                text = snack.Rank,
-                                style = MaterialTheme.typography.body1,
-                                color = JetsnackTheme.colors.textHelp,
-                                textAlign = TextAlign.Start
-                            )
-                        }
-                    }
-                    Column(
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp),
-                        horizontalAlignment = Alignment.End
+                                Text(
+                                    text = snack.Rank,
+                                    style = MaterialTheme.typography.body1,
+                                    color = JetsnackTheme.colors.textHelp,
+                                    textAlign = TextAlign.Start
+                                )
+                            }
 
-                    ) {
-                        Row {
-                            Text(
-                                text = stringResource(R.string.billionaires_age) + ": ",
-                                maxLines = 2,
-                                overflow = TextOverflow.Ellipsis,
-                                style = MaterialTheme.typography.body1,
-                                color = Color.Black
-                            )
-                            Text(
-                                text = snack.Age,
-                                style = MaterialTheme.typography.body1,
-                                color = JetsnackTheme.colors.textHelp,
-                            )
-                        }
-                    }
-                }
-                Spacer(modifier = Modifier.height(4.dp))
+                            Row {
+                                Text(
+                                    text = stringResource(R.string.billionaires_rank) + ": ",
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
+                                    style = MaterialTheme.typography.body1,
+                                    color = Color.Black,
+                                    textAlign = TextAlign.Start
+                                )
 
-                Row {
+                                Text(
+                                    text = snack.Rank,
+                                    style = MaterialTheme.typography.body1,
+                                    color = JetsnackTheme.colors.textHelp,
+                                    textAlign = TextAlign.Start
+                                )
+                            }
+                            Row {
+                                Text(
+                                    text = stringResource(R.string.billionaires_rank) + ": ",
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
+                                    style = MaterialTheme.typography.body1,
+                                    color = Color.Black,
+                                    textAlign = TextAlign.Start
+                                )
 
-                    Column(
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp)
-                    ) {
-                        Row {
-                            Text(
-                                text = stringResource(R.string.billionaires_net_worth) + ": ",
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                                style = MaterialTheme.typography.body1,
-                                color = Color.Black,
-                                textAlign = TextAlign.Start,
-                            )
-                            Text(
-                                text = snack.NetWorth,
-                                style = MaterialTheme.typography.body1,
-                                color = JetsnackTheme.colors.textHelp,
-                                textAlign = TextAlign.Start
-                            )
-                        }
-                    }
-                    Column(
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp)
-                    ) {
-                        Row {
-                            Text(
-                                text = stringResource(R.string.billionaires_source) + ": ",
-                                maxLines = 2,
-                                overflow = TextOverflow.Ellipsis,
-                                style = MaterialTheme.typography.body1,
-                                color = Color.Black
-                            )
-                            Text(
-                                text = snack.Source,
-                                style = MaterialTheme.typography.body1,
-                                color = JetsnackTheme.colors.textHelp,
-                            )
-                        }
-                    }
-                }
-                Spacer(modifier = Modifier.height(4.dp))
+                                Text(
+                                    text = snack.Rank,
+                                    style = MaterialTheme.typography.body1,
+                                    color = JetsnackTheme.colors.textHelp,
+                                    textAlign = TextAlign.Start
+                                )
+                            }
+                            }
+                Column (modifier = Modifier.padding(horizontal = 16.dp)) {
+                            Row {
+                                Text(
+                                    text = stringResource(R.string.billionaires_rank) + ": ",
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
+                                    style = MaterialTheme.typography.body1,
+                                    color = Color.Black,
+                                    textAlign = TextAlign.Start
+                                )
 
-                Row {
+                                Text(
+                                    text = snack.Rank,
+                                    style = MaterialTheme.typography.body1,
+                                    color = JetsnackTheme.colors.textHelp,
+                                    textAlign = TextAlign.Start
+                                )
+                            }
 
-                    Column(
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp)
-                    ) {
-                        Row {
-                            Text(
-                                text = stringResource(R.string.billionaires_residence) + ": ",
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis,
-                                style = MaterialTheme.typography.body1,
-                                color = Color.Black,
-                                textAlign = TextAlign.Start,
-                            )
-                            Text(
-                                text = snack.Country,
-                                style = MaterialTheme.typography.body1,
-                                color = JetsnackTheme.colors.textHelp,
-                                textAlign = TextAlign.Start
-                            )
-                        }
-                    }
-                }
+                            Row {
+                                Text(
+                                    text = stringResource(R.string.billionaires_rank) + ": ",
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
+                                    style = MaterialTheme.typography.body1,
+                                    color = Color.Black,
+                                    textAlign = TextAlign.Start
+                                )
+
+                                Text(
+                                    text = snack.Rank,
+                                    style = MaterialTheme.typography.body1,
+                                    color = JetsnackTheme.colors.textHelp,
+                                    textAlign = TextAlign.Start
+                                )
+                            }
+                            Row {
+                                Text(
+                                    text = stringResource(R.string.billionaires_rank) + ": ",
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis,
+                                    style = MaterialTheme.typography.body1,
+                                    color = Color.Black,
+                                    textAlign = TextAlign.Start
+                                )
+
+                                Text(
+                                    text = snack.Rank,
+                                    style = MaterialTheme.typography.body1,
+                                    color = JetsnackTheme.colors.textHelp,
+                                    textAlign = TextAlign.Start
+                                )
+                            }
+                            }
+
 
 
 
