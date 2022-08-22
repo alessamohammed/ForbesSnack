@@ -42,8 +42,8 @@ import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
-import com.example.jetsnack.model.SearchCategory
-import com.example.jetsnack.model.SearchCategoryCollection
+import com.example.jetsnack.domain.model.SearchCategory
+import com.example.jetsnack.domain.model.SearchCategoryCollection
 import com.example.jetsnack.ui.components.SnackImage
 import com.example.jetsnack.ui.components.VerticalGrid
 import com.example.jetsnack.ui.theme.JetsnackTheme

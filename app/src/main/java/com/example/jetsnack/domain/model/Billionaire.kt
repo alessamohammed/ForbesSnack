@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.example.jetsnack.model
+package com.example.jetsnack.domain.model
 
 import androidx.compose.runtime.Immutable
 
 @Immutable
-data class Snack(
+data class Billionaire(
     val id: Long,
     val name: String,
     val imageUrl: String,
@@ -34,8 +34,8 @@ data class Snack(
  * Static data
  */
 
-val snacks = listOf(
-    Snack(
+val billionaires = listOf(
+    Billionaire(
         id = 1L,
         name = "Elon",
         imageUrl = "https://source.unsplash.com/pGM4sjt_BdQ",
@@ -45,7 +45,7 @@ val snacks = listOf(
         Age = "1",
         Source = "1",
     ),
-    Snack(
+    Billionaire(
         id = 2L,
         name = "zecker",
         imageUrl = "https://source.unsplash.com/Yc5sL-ejk6U",
@@ -55,7 +55,7 @@ val snacks = listOf(
         Age = "2",
         Source = "2",
     ),
-    Snack(
+    Billionaire(
         id = 3L,
         name = "Mark curt",
         imageUrl = "https://source.unsplash.com/-LojFX9NfPY",

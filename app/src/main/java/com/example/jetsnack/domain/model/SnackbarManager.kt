@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.jetsnack.model
+package com.example.jetsnack.domain.model
 
 import androidx.annotation.StringRes
 import java.util.UUID

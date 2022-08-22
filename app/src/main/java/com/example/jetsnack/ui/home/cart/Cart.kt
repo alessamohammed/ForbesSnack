@@ -72,9 +72,9 @@ import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.jetsnack.R
-import com.example.jetsnack.model.OrderLine
-import com.example.jetsnack.model.SnackCollection
-import com.example.jetsnack.model.SnackRepo
+import com.example.jetsnack.domain.model.OrderLine
+import com.example.jetsnack.domain.model.SnackCollection
+import com.example.jetsnack.domain.model.SnackRepo
 import com.example.jetsnack.ui.components.JetsnackButton
 import com.example.jetsnack.ui.components.JetsnackDivider
 import com.example.jetsnack.ui.components.JetsnackSurface
@@ -267,8 +267,7 @@ private fun CartContent(
         item {
             SnackCollection(
                 snackCollection = inspiredByCart,
-                onSnackClick = onSnackClick,
-                highlight = false
+                onSnackClick = onSnackClick
             )
             Spacer(Modifier.height(56.dp))
         }
@@ -284,7 +283,7 @@ fun CartItem(
     onSnackClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val snack = orderLine.snack
+    val snack = orderLine.billionaire
     ConstraintLayout(
         modifier = modifier
             .fillMaxWidth()

@@ -20,6 +20,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-parcelize'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -121,6 +122,14 @@ dependencies {
 
     implementation Libs.Coil.coilCompose
 
+    // networking
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
+    implementation "com.squareup.retrofit2:converter-moshi:2.4.0"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:2.4.0"
+
     androidTestImplementation Libs.JUnit.junit
     androidTestImplementation Libs.AndroidX.Test.core
     androidTestImplementation Libs.AndroidX.Test.runner
@@ -129,4 +138,5 @@ dependencies {
     androidTestImplementation Libs.AndroidX.Test.Ext.junit
     androidTestImplementation Libs.Coroutines.test
     androidTestImplementation Libs.AndroidX.Compose.uiTest
+
 }

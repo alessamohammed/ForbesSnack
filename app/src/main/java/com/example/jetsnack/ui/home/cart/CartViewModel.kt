@@ -19,9 +19,9 @@ package com.example.jetsnack.ui.home.cart
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.jetsnack.R
-import com.example.jetsnack.model.OrderLine
-import com.example.jetsnack.model.SnackRepo
-import com.example.jetsnack.model.SnackbarManager
+import com.example.jetsnack.domain.model.OrderLine
+import com.example.jetsnack.domain.model.SnackRepo
+import com.example.jetsnack.domain.model.SnackbarManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -45,7 +45,7 @@ class CartViewModel(
 
     fun increaseSnackCount(snackId: Long) {
         if (!shouldRandomlyFail()) {
-            val currentCount = _orderLines.value.first { it.snack.id == snackId }.count
+            val currentCount = _orderLines.value.first { it.billionaire.id == snackId }.count
             updateSnackCount(snackId, currentCount + 1)
         } else {
             snackbarManager.showMessage(R.string.cart_increase_error)
@@ -54,7 +54,7 @@ class CartViewModel(
 
     fun decreaseSnackCount(snackId: Long) {
         if (!shouldRandomlyFail()) {
-            val currentCount = _orderLines.value.first { it.snack.id == snackId }.count
+            val currentCount = _orderLines.value.first { it.billionaire.id == snackId }.count
             if (currentCount == 1) {
                 // remove snack from cart
                 removeSnack(snackId)
@@ -68,12 +68,12 @@ class CartViewModel(
     }
 
     fun removeSnack(snackId: Long) {
-        _orderLines.value = _orderLines.value.filter { it.snack.id != snackId }
+        _orderLines.value = _orderLines.value.filter { it.billionaire.id != snackId }
     }
 
     private fun updateSnackCount(snackId: Long, count: Int) {
         _orderLines.value = _orderLines.value.map {
-            if (it.snack.id == snackId) {
+            if (it.billionaire.id == snackId) {
                 it.copy(count = count)
             } else {
                 it

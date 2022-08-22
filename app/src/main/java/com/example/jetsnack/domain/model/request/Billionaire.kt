@@ -1,0 +1,83 @@
+package com.example.jetsnack.domain.model.request
+
+
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
+data class Billionaire(
+    @Json(name = "abouts")
+    val abouts: List<String>,
+    @Json(name = "archivedWorth")
+    val archivedWorth: Int,
+    @Json(name = "bio")
+    val bio: String,
+    @Json(name = "bioSuppress")
+    val bioSuppress: Boolean,
+    @Json(name = "bios")
+    val bios: List<String>,
+    @Json(name = "birthDate")
+    val birthDate: Long,
+    @Json(name = "city")
+    val city: String,
+    @Json(name = "countryOfCitizenship")
+    val countryOfCitizenship: String,
+    @Json(name = "csfDisplayFields")
+    val csfDisplayFields: List<String>,
+    @Json(name = "date")
+    val date: Long,
+    @Json(name = "estWorthPrev")
+    val estWorthPrev: Double,
+    @Json(name = "familyList")
+    val familyList: Boolean,
+    @Json(name = "finalWorth")
+    val finalWorth: Double,
+    @Json(name = "financialAssets")
+    val financialAssets: List<FinancialAsset>,
+    @Json(name = "gender")
+    val gender: String,
+    @Json(name = "imageExists")
+    val imageExists: Boolean,
+    @Json(name = "industries")
+    val industries: List<String>,
+    @Json(name = "interactive")
+    val interactive: Boolean,
+    @Json(name = "lastName")
+    val lastName: String,
+    @Json(name = "listUri")
+    val listUri: String,
+    @Json(name = "name")
+    val name: String,
+    @Json(name = "naturalId")
+    val naturalId: String,
+    @Json(name = "person")
+    val person: Person,
+    @Json(name = "personName")
+    val personName: String,
+    @Json(name = "position")
+    val position: Int,
+    @Json(name = "privateAssetsWorth")
+    val privateAssetsWorth: Double,
+    @Json(name = "rank")
+    val rank: Int,
+    @Json(name = "source")
+    val source: String,
+    @Json(name = "squareImage")
+    val squareImage: String,
+    @Json(name = "state")
+    val state: String,
+    @Json(name = "thumbnail")
+    val thumbnail: String,
+    @Json(name = "timestamp")
+    val timestamp: Long,
+    @Json(name = "uri")
+    val uri: String,
+    @Json(name = "version")
+    val version: Int,
+    @Json(name = "visible")
+    val visible: Boolean,
+    @Json(name = "wealthList")
+    val wealthList: Boolean,
+    @Json(name = "year")
+    val year: Int
+)

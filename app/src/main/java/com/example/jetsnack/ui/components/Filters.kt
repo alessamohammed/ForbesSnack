@@ -48,7 +48,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jetsnack.R
-import com.example.jetsnack.model.Filter
+import com.example.jetsnack.domain.model.Filter
 import com.example.jetsnack.ui.theme.JetsnackTheme
 
 @Composable

@@ -47,20 +47,19 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.jetsnack.R
-import com.example.jetsnack.model.Filter
-import com.example.jetsnack.model.Snack
-import com.example.jetsnack.model.snacks
+import com.example.jetsnack.domain.model.Filter
+import com.example.jetsnack.domain.model.Billionaire
+import com.example.jetsnack.domain.model.billionaires
 import com.example.jetsnack.ui.components.FilterBar
 import com.example.jetsnack.ui.components.JetsnackButton
 import com.example.jetsnack.ui.components.JetsnackDivider
 import com.example.jetsnack.ui.components.JetsnackSurface
 import com.example.jetsnack.ui.components.SnackImage
 import com.example.jetsnack.ui.theme.JetsnackTheme
-import com.example.jetsnack.ui.utils.formatPrice
 
 @Composable
 fun SearchResults(
-    searchResults: List<Snack>,
+    searchResults: List<Billionaire>,
     filters: List<Filter>,
     onSnackClick: (Long) -> Unit
 ) {
@@ -82,7 +81,7 @@ fun SearchResults(
 
 @Composable
 private fun SearchResult(
-    snack: Snack,
+    billionaire: Billionaire,
     onSnackClick: (Long) -> Unit,
     showDivider: Boolean,
     modifier: Modifier = Modifier
@@ -90,7 +89,7 @@ private fun SearchResult(
     ConstraintLayout(
         modifier = modifier
             .fillMaxWidth()
-            .clickable { onSnackClick(snack.id) }
+            .clickable { onSnackClick(billionaire.id) }
             .padding(horizontal = 24.dp)
     ) {
         val (divider, image, name, tag, priceSpacer, price, add) = createRefs()
@@ -104,7 +103,7 @@ private fun SearchResult(
             )
         }
         SnackImage(
-            imageUrl = snack.imageUrl,
+            imageUrl = billionaire.imageUrl,
             contentDescription = null,
             modifier = Modifier
                 .size(100.dp)
@@ -119,7 +118,7 @@ private fun SearchResult(
                 }
         )
         Text(
-            text = snack.name,
+            text = billionaire.name,
             style = MaterialTheme.typography.subtitle1,
             color = JetsnackTheme.colors.textSecondary,
             modifier = Modifier.constrainAs(name) {
@@ -133,7 +132,7 @@ private fun SearchResult(
             }
         )
         Text(
-            text = snack.name,
+            text = billionaire.name,
             style = MaterialTheme.typography.body1,
             color = JetsnackTheme.colors.textHelp,
             modifier = Modifier.constrainAs(tag) {
@@ -227,7 +226,7 @@ private fun SearchResultPreview() {
     JetsnackTheme {
         JetsnackSurface {
             SearchResult(
-                snack = snacks[0],
+                billionaire = billionaires[0],
                 onSnackClick = { },
                 showDivider = false
             )

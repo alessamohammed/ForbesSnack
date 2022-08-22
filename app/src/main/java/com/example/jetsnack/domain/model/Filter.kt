@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.jetsnack.model
+package com.example.jetsnack.domain.model
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Android

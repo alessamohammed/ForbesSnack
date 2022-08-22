@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.jetsnack.model
+package com.example.jetsnack.domain.model
 
 import androidx.compose.runtime.Immutable
 
@@ -22,7 +22,7 @@ import androidx.compose.runtime.Immutable
 data class SnackCollection(
     val id: Long,
     val name: String,
-    val snacks: List<Snack>,
+    val billionaires: List<Billionaire>,
     val type: CollectionType = CollectionType.Normal
 )
 
@@ -33,7 +33,7 @@ enum class CollectionType { Normal, Highlight }
  */
 object SnackRepo {
     fun getSnacks(): List<SnackCollection> = snackCollections
-    fun getSnack(snackId: Long) = snacks.find { it.id == snackId }!!
+    fun getSnack(snackId: Long) = billionaires.find { it.id == snackId }!!
     fun getRelated(@Suppress("UNUSED_PARAMETER") snackId: Long) = related
     fun getInspiredByCart() = inspiredByCart
     fun getFilters() = filters
@@ -53,7 +53,7 @@ private val tastyTreats = SnackCollection(
     id = 1L,
     name = "Android's picks",
     type = CollectionType.Highlight,
-    snacks = snacks.subList(0, 3)
+    billionaires = billionaires.subList(0, 3)
 )
 
 
@@ -76,13 +76,13 @@ private val related = listOf(
 )
 
 private val cart = listOf(
-    OrderLine(snacks[2], 2),
-    OrderLine(snacks[1], 3),
-    OrderLine(snacks[0], 1)
+    OrderLine(billionaires[2], 2),
+    OrderLine(billionaires[1], 3),
+    OrderLine(billionaires[0], 1)
 )
 
 @Immutable
 data class OrderLine(
-    val snack: Snack,
+    val billionaire: Billionaire,
     val count: Int
 )

@@ -52,8 +52,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.jetsnack.R
-import com.example.jetsnack.model.Filter
-import com.example.jetsnack.model.SnackRepo
+import com.example.jetsnack.domain.model.Filter
+import com.example.jetsnack.domain.model.SnackRepo
 import com.example.jetsnack.ui.components.FilterChip
 import com.example.jetsnack.ui.components.JetsnackScaffold
 import com.example.jetsnack.ui.theme.JetsnackTheme

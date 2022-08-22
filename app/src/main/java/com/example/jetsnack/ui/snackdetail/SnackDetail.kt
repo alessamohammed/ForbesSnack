@@ -64,9 +64,9 @@ import androidx.compose.ui.unit.lerp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
 import com.example.jetsnack.R
-import com.example.jetsnack.model.Snack
-import com.example.jetsnack.model.SnackCollection
-import com.example.jetsnack.model.SnackRepo
+import com.example.jetsnack.domain.model.Billionaire
+import com.example.jetsnack.domain.model.SnackCollection
+import com.example.jetsnack.domain.model.SnackRepo
 import com.example.jetsnack.ui.components.JetsnackButton
 import com.example.jetsnack.ui.components.JetsnackDivider
 import com.example.jetsnack.ui.components.JetsnackSurface
@@ -75,7 +75,6 @@ import com.example.jetsnack.ui.components.SnackCollection
 import com.example.jetsnack.ui.components.SnackImage
 import com.example.jetsnack.ui.theme.JetsnackTheme
 import com.example.jetsnack.ui.theme.Neutral8
-import com.example.jetsnack.ui.utils.formatPrice
 import com.example.jetsnack.ui.utils.mirroringBackIcon
 import kotlin.math.max
 import kotlin.math.min
@@ -219,8 +218,7 @@ private fun Body(
                         key(snackCollection.id) {
                             SnackCollection(
                                 snackCollection = snackCollection,
-                                onSnackClick = { },
-                                highlight = false
+                                onSnackClick = { }
                             )
                         }
                     }
@@ -238,7 +236,7 @@ private fun Body(
 }
 
 @Composable
-private fun Title(snack: Snack, scrollProvider: () -> Int) {
+private fun Title(billionaire: Billionaire, scrollProvider: () -> Int) {
     val maxOffset = with(LocalDensity.current) { MaxTitleOffset.toPx() }
     val minOffset = with(LocalDensity.current) { MinTitleOffset.toPx() }
 
@@ -256,13 +254,13 @@ private fun Title(snack: Snack, scrollProvider: () -> Int) {
     ) {
         Spacer(Modifier.height(16.dp))
         Text(
-            text = snack.name,
+            text = billionaire.name,
             style = MaterialTheme.typography.h4,
             color = JetsnackTheme.colors.textSecondary,
             modifier = HzPadding
         )
         Text(
-            text = snack.Country,
+            text = billionaire.Country,
             style = MaterialTheme.typography.subtitle2,
             fontSize = 20.sp,
             color = JetsnackTheme.colors.textHelp,

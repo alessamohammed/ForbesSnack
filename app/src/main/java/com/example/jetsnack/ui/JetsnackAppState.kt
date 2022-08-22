@@ -33,7 +33,7 @@ import androidx.navigation.NavGraph
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.jetsnack.model.SnackbarManager
+import com.example.jetsnack.domain.model.SnackbarManager
 import com.example.jetsnack.ui.home.HomeSections
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collect

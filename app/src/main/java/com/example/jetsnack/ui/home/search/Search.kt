@@ -53,12 +53,12 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jetsnack.R
-import com.example.jetsnack.model.Filter
-import com.example.jetsnack.model.SearchCategoryCollection
-import com.example.jetsnack.model.SearchRepo
-import com.example.jetsnack.model.SearchSuggestionGroup
-import com.example.jetsnack.model.Snack
-import com.example.jetsnack.model.SnackRepo
+import com.example.jetsnack.domain.model.Filter
+import com.example.jetsnack.domain.model.SearchCategoryCollection
+import com.example.jetsnack.domain.model.SearchRepo
+import com.example.jetsnack.domain.model.SearchSuggestionGroup
+import com.example.jetsnack.domain.model.Billionaire
+import com.example.jetsnack.domain.model.SnackRepo
 import com.example.jetsnack.ui.components.JetsnackDivider
 import com.example.jetsnack.ui.components.JetsnackSurface
 import com.example.jetsnack.ui.theme.JetsnackTheme
@@ -117,7 +117,7 @@ private fun rememberSearchState(
     categories: List<SearchCategoryCollection> = SearchRepo.getCategories(),
     suggestions: List<SearchSuggestionGroup> = SearchRepo.getSuggestions(),
     filters: List<Filter> = SnackRepo.getFilters(),
-    searchResults: List<Snack> = emptyList()
+    searchResults: List<Billionaire> = emptyList()
 ): SearchState {
     return remember {
         SearchState(
@@ -140,7 +140,7 @@ class SearchState(
     categories: List<SearchCategoryCollection>,
     suggestions: List<SearchSuggestionGroup>,
     filters: List<Filter>,
-    searchResults: List<Snack>
+    searchResults: List<Billionaire>
 ) {
     var query by mutableStateOf(query)
     var focused by mutableStateOf(focused)

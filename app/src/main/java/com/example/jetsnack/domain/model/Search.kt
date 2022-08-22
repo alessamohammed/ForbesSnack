@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.jetsnack.model
+package com.example.jetsnack.domain.model
 
 import androidx.compose.runtime.Immutable
 import kotlinx.coroutines.Dispatchers
@@ -28,9 +28,9 @@ object SearchRepo {
     fun getCategories(): List<SearchCategoryCollection> = searchCategoryCollections
     fun getSuggestions(): List<SearchSuggestionGroup> = searchSuggestions
 
-    suspend fun search(query: String): List<Snack> = withContext(Dispatchers.Default) {
+    suspend fun search(query: String): List<Billionaire> = withContext(Dispatchers.Default) {
         delay(200L) // simulate an I/O delay
-        snacks.filter { it.name.contains(query, ignoreCase = true) }
+        billionaires.filter { it.name.contains(query, ignoreCase = true) }
     }
 }
 

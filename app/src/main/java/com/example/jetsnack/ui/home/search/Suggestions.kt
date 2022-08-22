@@ -33,8 +33,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.jetsnack.model.SearchRepo
-import com.example.jetsnack.model.SearchSuggestionGroup
+import com.example.jetsnack.domain.model.SearchRepo
+import com.example.jetsnack.domain.model.SearchSuggestionGroup
 import com.example.jetsnack.ui.components.JetsnackSurface
 import com.example.jetsnack.ui.theme.JetsnackTheme
 
