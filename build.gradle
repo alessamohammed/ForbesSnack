@@ -19,6 +19,7 @@ import com.example.jetsnack.buildsrc.Urls
 import com.example.jetsnack.buildsrc.Versions
 
 buildscript {
+
     repositories {
         google()
         mavenCentral()
@@ -26,6 +27,7 @@ buildscript {
     dependencies {
         classpath Libs.androidGradlePlugin
         classpath Libs.Kotlin.gradlePlugin
+        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.42'
     }
 }
 

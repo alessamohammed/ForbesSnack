@@ -100,12 +100,12 @@ fun SnackDetail(
 
     Box(Modifier.fillMaxSize()) {
         val scroll = rememberScrollState(0)
-        Header()
-        Body(related, scroll)
-        Title(snack) { scroll.value }
-        Image(snack.imageUrl) { scroll.value }
-        Up(upPress)
-        CartBottomBar(modifier = Modifier.align(Alignment.BottomCenter))
+//        Header()
+//        Body(related, scroll)
+//        Title(snack) { scroll.value }
+//        Image(snack.imageUrl) { scroll.value }
+//        Up(upPress)
+//        CartBottomBar(modifier = Modifier.align(Alignment.BottomCenter))
     }
 }
 
@@ -145,138 +145,138 @@ private fun Body(
     related: List<SnackCollection>,
     scroll: ScrollState
 ) {
-    Column {
-        Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .statusBarsPadding()
-                .height(MinTitleOffset)
-        )
-        Column(
-            modifier = Modifier.verticalScroll(scroll)
-        ) {
-            Spacer(Modifier.height(GradientScroll))
-            JetsnackSurface(Modifier.fillMaxWidth()) {
-                Column {
-                    Spacer(Modifier.height(ImageOverlap))
-                    Spacer(Modifier.height(TitleHeight))
-
-                    Spacer(Modifier.height(16.dp))
-                    Text(
-                        text = stringResource(R.string.detail_header),
-                        style = MaterialTheme.typography.overline,
-                        color = JetsnackTheme.colors.textHelp,
-                        modifier = HzPadding
-                    )
-                    Spacer(Modifier.height(16.dp))
-                    var seeMore by remember { mutableStateOf(true) }
-                    Text(
-                        text = stringResource(R.string.detail_placeholder),
-                        style = MaterialTheme.typography.body1,
-                        color = JetsnackTheme.colors.textHelp,
-                        maxLines = if (seeMore) 5 else Int.MAX_VALUE,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = HzPadding
-                    )
-                    val textButton = if (seeMore) {
-                        stringResource(id = R.string.see_more)
-                    } else {
-                        stringResource(id = R.string.see_less)
-                    }
-                    Text(
-                        text = textButton,
-                        style = MaterialTheme.typography.button,
-                        textAlign = TextAlign.Center,
-                        color = JetsnackTheme.colors.textLink,
-                        modifier = Modifier
-                            .heightIn(20.dp)
-                            .fillMaxWidth()
-                            .padding(top = 15.dp)
-                            .clickable {
-                                seeMore = !seeMore
-                            }
-                    )
-                    Spacer(Modifier.height(40.dp))
-                    Text(
-                        text = stringResource(R.string.ingredients),
-                        style = MaterialTheme.typography.overline,
-                        color = JetsnackTheme.colors.textHelp,
-                        modifier = HzPadding
-                    )
-                    Spacer(Modifier.height(4.dp))
-                    Text(
-                        text = stringResource(R.string.ingredients_list),
-                        style = MaterialTheme.typography.body1,
-                        color = JetsnackTheme.colors.textHelp,
-                        modifier = HzPadding
-                    )
-
-                    Spacer(Modifier.height(16.dp))
-                    JetsnackDivider()
-
-                    related.forEach { snackCollection ->
-                        key(snackCollection.id) {
-                            SnackCollection(
-                                snackCollection = snackCollection,
-                                onSnackClick = { }
-                            )
-                        }
-                    }
-
-                    Spacer(
-                        modifier = Modifier
-                            .padding(bottom = BottomBarHeight)
-                            .navigationBarsPadding()
-                            .height(8.dp)
-                    )
-                }
-            }
-        }
-    }
+//    Column {
+//        Spacer(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .statusBarsPadding()
+//                .height(MinTitleOffset)
+//        )
+//        Column(
+//            modifier = Modifier.verticalScroll(scroll)
+//        ) {
+//            Spacer(Modifier.height(GradientScroll))
+//            JetsnackSurface(Modifier.fillMaxWidth()) {
+//                Column {
+//                    Spacer(Modifier.height(ImageOverlap))
+//                    Spacer(Modifier.height(TitleHeight))
+//
+//                    Spacer(Modifier.height(16.dp))
+//                    Text(
+//                        text = stringResource(R.string.detail_header),
+//                        style = MaterialTheme.typography.overline,
+//                        color = JetsnackTheme.colors.textHelp,
+//                        modifier = HzPadding
+//                    )
+//                    Spacer(Modifier.height(16.dp))
+//                    var seeMore by remember { mutableStateOf(true) }
+//                    Text(
+//                        text = stringResource(R.string.detail_placeholder),
+//                        style = MaterialTheme.typography.body1,
+//                        color = JetsnackTheme.colors.textHelp,
+//                        maxLines = if (seeMore) 5 else Int.MAX_VALUE,
+//                        overflow = TextOverflow.Ellipsis,
+//                        modifier = HzPadding
+//                    )
+//                    val textButton = if (seeMore) {
+//                        stringResource(id = R.string.see_more)
+//                    } else {
+//                        stringResource(id = R.string.see_less)
+//                    }
+//                    Text(
+//                        text = textButton,
+//                        style = MaterialTheme.typography.button,
+//                        textAlign = TextAlign.Center,
+//                        color = JetsnackTheme.colors.textLink,
+//                        modifier = Modifier
+//                            .heightIn(20.dp)
+//                            .fillMaxWidth()
+//                            .padding(top = 15.dp)
+//                            .clickable {
+//                                seeMore = !seeMore
+//                            }
+//                    )
+//                    Spacer(Modifier.height(40.dp))
+//                    Text(
+//                        text = stringResource(R.string.ingredients),
+//                        style = MaterialTheme.typography.overline,
+//                        color = JetsnackTheme.colors.textHelp,
+//                        modifier = HzPadding
+//                    )
+//                    Spacer(Modifier.height(4.dp))
+//                    Text(
+//                        text = stringResource(R.string.ingredients_list),
+//                        style = MaterialTheme.typography.body1,
+//                        color = JetsnackTheme.colors.textHelp,
+//                        modifier = HzPadding
+//                    )
+//
+//                    Spacer(Modifier.height(16.dp))
+//                    JetsnackDivider()
+//
+//                    related.forEach { snackCollection ->
+//                        key(snackCollection.id) {
+//                            SnackCollection(
+//                                snackCollection = snackCollection,
+//                                onSnackClick = { }
+//                            )
+//                        }
+//                    }
+//
+//                    Spacer(
+//                        modifier = Modifier
+//                            .padding(bottom = BottomBarHeight)
+//                            .navigationBarsPadding()
+//                            .height(8.dp)
+//                    )
+//                }
+//            }
+//        }
+//    }
 }
 
 @Composable
 private fun Title(billionaire: Billionaire, scrollProvider: () -> Int) {
-    val maxOffset = with(LocalDensity.current) { MaxTitleOffset.toPx() }
-    val minOffset = with(LocalDensity.current) { MinTitleOffset.toPx() }
-
-    Column(
-        verticalArrangement = Arrangement.Bottom,
-        modifier = Modifier
-            .heightIn(min = TitleHeight)
-            .statusBarsPadding()
-            .offset {
-                val scroll = scrollProvider()
-                val offset = (maxOffset - scroll).coerceAtLeast(minOffset)
-                IntOffset(x = 0, y = offset.toInt())
-            }
-            .background(color = JetsnackTheme.colors.uiBackground)
-    ) {
-        Spacer(Modifier.height(16.dp))
-        Text(
-            text = billionaire.name,
-            style = MaterialTheme.typography.h4,
-            color = JetsnackTheme.colors.textSecondary,
-            modifier = HzPadding
-        )
-        Text(
-            text = billionaire.Country,
-            style = MaterialTheme.typography.subtitle2,
-            fontSize = 20.sp,
-            color = JetsnackTheme.colors.textHelp,
-            modifier = HzPadding
-        )
-        Spacer(Modifier.height(4.dp))
-        Text(
-            text = "jjnjn",
-            style = MaterialTheme.typography.h6,
-            color = JetsnackTheme.colors.textPrimary,
-            modifier = HzPadding
-        )
-
-        Spacer(Modifier.height(8.dp))
-        JetsnackDivider()
-    }
+//    val maxOffset = with(LocalDensity.current) { MaxTitleOffset.toPx() }
+//    val minOffset = with(LocalDensity.current) { MinTitleOffset.toPx() }
+//
+//    Column(
+//        verticalArrangement = Arrangement.Bottom,
+//        modifier = Modifier
+//            .heightIn(min = TitleHeight)
+//            .statusBarsPadding()
+//            .offset {
+//                val scroll = scrollProvider()
+//                val offset = (maxOffset - scroll).coerceAtLeast(minOffset)
+//                IntOffset(x = 0, y = offset.toInt())
+//            }
+//            .background(color = JetsnackTheme.colors.uiBackground)
+//    ) {
+//        Spacer(Modifier.height(16.dp))
+//        Text(
+//            text = billionaire.name,
+//            style = MaterialTheme.typography.h4,
+//            color = JetsnackTheme.colors.textSecondary,
+//            modifier = HzPadding
+//        )
+//        Text(
+//            text = billionaire.Country,
+//            style = MaterialTheme.typography.subtitle2,
+//            fontSize = 20.sp,
+//            color = JetsnackTheme.colors.textHelp,
+//            modifier = HzPadding
+//        )
+//        Spacer(Modifier.height(4.dp))
+//        Text(
+//            text = "jjnjn",
+//            style = MaterialTheme.typography.h6,
+//            color = JetsnackTheme.colors.textPrimary,
+//            modifier = HzPadding
+//        )
+//
+//        Spacer(Modifier.height(8.dp))
+//        JetsnackDivider()
+//    }
 }
 
 @Composable
@@ -284,21 +284,21 @@ private fun Image(
     imageUrl: String,
     scrollProvider: () -> Int
 ) {
-    val collapseRange = with(LocalDensity.current) { (MaxTitleOffset - MinTitleOffset).toPx() }
-    val collapseFractionProvider = {
-        (scrollProvider() / collapseRange).coerceIn(0f, 1f)
-    }
-
-    CollapsingImageLayout(
-        collapseFractionProvider = collapseFractionProvider,
-        modifier = HzPadding.then(Modifier.statusBarsPadding())
-    ) {
-        SnackImage(
-            imageUrl = imageUrl,
-            contentDescription = null,
-            modifier = Modifier.fillMaxSize()
-        )
-    }
+//    val collapseRange = with(LocalDensity.current) { (MaxTitleOffset - MinTitleOffset).toPx() }
+//    val collapseFractionProvider = {
+//        (scrollProvider() / collapseRange).coerceIn(0f, 1f)
+//    }
+//
+//    CollapsingImageLayout(
+//        collapseFractionProvider = collapseFractionProvider,
+//        modifier = HzPadding.then(Modifier.statusBarsPadding())
+//    ) {
+//        SnackImage(
+//            imageUrl = imageUrl,
+//            contentDescription = null,
+//            modifier = Modifier.fillMaxSize()
+//        )
+//    }
 }
 
 @Composable
@@ -307,67 +307,67 @@ private fun CollapsingImageLayout(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
 ) {
-    Layout(
-        modifier = modifier,
-        content = content
-    ) { measurables, constraints ->
-        check(measurables.size == 1)
-
-        val collapseFraction = collapseFractionProvider()
-
-        val imageMaxSize = min(ExpandedImageSize.roundToPx(), constraints.maxWidth)
-        val imageMinSize = max(CollapsedImageSize.roundToPx(), constraints.minWidth)
-        val imageWidth = lerp(imageMaxSize, imageMinSize, collapseFraction)
-        val imagePlaceable = measurables[0].measure(Constraints.fixed(imageWidth, imageWidth))
-
-        val imageY = lerp(MinTitleOffset, MinImageOffset, collapseFraction).roundToPx()
-        val imageX = lerp(
-            (constraints.maxWidth - imageWidth) / 2, // centered when expanded
-            constraints.maxWidth - imageWidth, // right aligned when collapsed
-            collapseFraction
-        )
-        layout(
-            width = constraints.maxWidth,
-            height = imageY + imageWidth
-        ) {
-            imagePlaceable.placeRelative(imageX, imageY)
-        }
-    }
+//    Layout(
+//        modifier = modifier,
+//        content = content
+//    ) { measurables, constraints ->
+//        check(measurables.size == 1)
+//
+//        val collapseFraction = collapseFractionProvider()
+//
+//        val imageMaxSize = min(ExpandedImageSize.roundToPx(), constraints.maxWidth)
+//        val imageMinSize = max(CollapsedImageSize.roundToPx(), constraints.minWidth)
+//        val imageWidth = lerp(imageMaxSize, imageMinSize, collapseFraction)
+//        val imagePlaceable = measurables[0].measure(Constraints.fixed(imageWidth, imageWidth))
+//
+//        val imageY = lerp(MinTitleOffset, MinImageOffset, collapseFraction).roundToPx()
+//        val imageX = lerp(
+//            (constraints.maxWidth - imageWidth) / 2, // centered when expanded
+//            constraints.maxWidth - imageWidth, // right aligned when collapsed
+//            collapseFraction
+//        )
+//        layout(
+//            width = constraints.maxWidth,
+//            height = imageY + imageWidth
+//        ) {
+//            imagePlaceable.placeRelative(imageX, imageY)
+//        }
+//    }
 }
 
 @Composable
 private fun CartBottomBar(modifier: Modifier = Modifier) {
-    val (count, updateCount) = remember { mutableStateOf(1) }
-    JetsnackSurface(modifier) {
-        Column {
-            JetsnackDivider()
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .navigationBarsPadding()
-                    .then(HzPadding)
-                    .heightIn(min = BottomBarHeight)
-            ) {
-                QuantitySelector(
-                    count = count,
-                    decreaseItemCount = { if (count > 0) updateCount(count - 1) },
-                    increaseItemCount = { updateCount(count + 1) }
-                )
-                Spacer(Modifier.width(16.dp))
-                JetsnackButton(
-                    onClick = { /* todo */ },
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Text(
-                        text = stringResource(R.string.add_to_cart),
-                        modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Center,
-                        maxLines = 1
-                    )
-                }
-            }
-        }
-    }
+//    val (count, updateCount) = remember { mutableStateOf(1) }
+//    JetsnackSurface(modifier) {
+//        Column {
+//            JetsnackDivider()
+//            Row(
+//                verticalAlignment = Alignment.CenterVertically,
+//                modifier = Modifier
+//                    .navigationBarsPadding()
+//                    .then(HzPadding)
+//                    .heightIn(min = BottomBarHeight)
+//            ) {
+//                QuantitySelector(
+//                    count = count,
+//                    decreaseItemCount = { if (count > 0) updateCount(count - 1) },
+//                    increaseItemCount = { updateCount(count + 1) }
+//                )
+//                Spacer(Modifier.width(16.dp))
+//                JetsnackButton(
+//                    onClick = { /* todo */ },
+//                    modifier = Modifier.weight(1f)
+//                ) {
+//                    Text(
+//                        text = stringResource(R.string.add_to_cart),
+//                        modifier = Modifier.fillMaxWidth(),
+//                        textAlign = TextAlign.Center,
+//                        maxLines = 1
+//                    )
+//                }
+//            }
+//        }
+//    }
 }
 
 @Preview("default")

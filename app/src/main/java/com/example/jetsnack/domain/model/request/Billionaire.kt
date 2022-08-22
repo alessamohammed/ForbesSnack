@@ -1,83 +1,81 @@
 package com.example.jetsnack.domain.model.request
 
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import com.google.gson.annotations.SerializedName
 
-@JsonClass(generateAdapter = true)
 data class Billionaire(
-    @Json(name = "abouts")
+    @SerializedName("abouts")
     val abouts: List<String>,
-    @Json(name = "archivedWorth")
+    @SerializedName("archivedWorth")
     val archivedWorth: Int,
-    @Json(name = "bio")
+    @SerializedName("bio")
     val bio: String,
-    @Json(name = "bioSuppress")
+    @SerializedName("bioSuppress")
     val bioSuppress: Boolean,
-    @Json(name = "bios")
+    @SerializedName("bios")
     val bios: List<String>,
-    @Json(name = "birthDate")
+    @SerializedName("birthDate")
     val birthDate: Long,
-    @Json(name = "city")
+    @SerializedName("city")
     val city: String,
-    @Json(name = "countryOfCitizenship")
+    @SerializedName("countryOfCitizenship")
     val countryOfCitizenship: String,
-    @Json(name = "csfDisplayFields")
+    @SerializedName("csfDisplayFields")
     val csfDisplayFields: List<String>,
-    @Json(name = "date")
+    @SerializedName("date")
     val date: Long,
-    @Json(name = "estWorthPrev")
+    @SerializedName("estWorthPrev")
     val estWorthPrev: Double,
-    @Json(name = "familyList")
+    @SerializedName("familyList")
     val familyList: Boolean,
-    @Json(name = "finalWorth")
+    @SerializedName("finalWorth")
     val finalWorth: Double,
-    @Json(name = "financialAssets")
+    @SerializedName("financialAssets")
     val financialAssets: List<FinancialAsset>,
-    @Json(name = "gender")
+    @SerializedName("gender")
     val gender: String,
-    @Json(name = "imageExists")
+    @SerializedName("imageExists")
     val imageExists: Boolean,
-    @Json(name = "industries")
+    @SerializedName("industries")
     val industries: List<String>,
-    @Json(name = "interactive")
+    @SerializedName("interactive")
     val interactive: Boolean,
-    @Json(name = "lastName")
+    @SerializedName("lastName")
     val lastName: String,
-    @Json(name = "listUri")
+    @SerializedName("listUri")
     val listUri: String,
-    @Json(name = "name")
+    @SerializedName("name")
     val name: String,
-    @Json(name = "naturalId")
+    @SerializedName("naturalId")
     val naturalId: String,
-    @Json(name = "person")
+    @SerializedName("person")
     val person: Person,
-    @Json(name = "personName")
+    @SerializedName("personName")
     val personName: String,
-    @Json(name = "position")
+    @SerializedName("position")
     val position: Int,
-    @Json(name = "privateAssetsWorth")
+    @SerializedName("privateAssetsWorth")
     val privateAssetsWorth: Double,
-    @Json(name = "rank")
+    @SerializedName("rank")
     val rank: Int,
-    @Json(name = "source")
+    @SerializedName("source")
     val source: String,
-    @Json(name = "squareImage")
+    @SerializedName("squareImage")
     val squareImage: String,
-    @Json(name = "state")
+    @SerializedName("state")
     val state: String,
-    @Json(name = "thumbnail")
+    @SerializedName("thumbnail")
     val thumbnail: String,
-    @Json(name = "timestamp")
+    @SerializedName("timestamp")
     val timestamp: Long,
-    @Json(name = "uri")
+    @SerializedName("uri")
     val uri: String,
-    @Json(name = "version")
+    @SerializedName("version")
     val version: Int,
-    @Json(name = "visible")
+    @SerializedName("visible")
     val visible: Boolean,
-    @Json(name = "wealthList")
+    @SerializedName("wealthList")
     val wealthList: Boolean,
-    @Json(name = "year")
+    @SerializedName("year")
     val year: Int
 )

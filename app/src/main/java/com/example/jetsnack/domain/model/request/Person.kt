@@ -1,17 +1,15 @@
 package com.example.jetsnack.domain.model.request
 
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import com.google.gson.annotations.SerializedName
 
-@JsonClass(generateAdapter = true)
 data class Person(
-    @Json(name = "imageExists")
+    @SerializedName("imageExists")
     val imageExists: Boolean,
-    @Json(name = "name")
+    @SerializedName("name")
     val name: String,
-    @Json(name = "squareImage")
+    @SerializedName("squareImage")
     val squareImage: String,
-    @Json(name = "uri")
+    @SerializedName("uri")
     val uri: String
 )

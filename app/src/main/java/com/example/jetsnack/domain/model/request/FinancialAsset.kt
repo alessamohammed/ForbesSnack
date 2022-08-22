@@ -1,29 +1,27 @@
 package com.example.jetsnack.domain.model.request
 
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import com.google.gson.annotations.SerializedName
 
-@JsonClass(generateAdapter = true)
 data class FinancialAsset(
-    @Json(name = "companyName")
+    @SerializedName("companyName")
     val companyName: String,
-    @Json(name = "currencyCode")
+    @SerializedName("currencyCode")
     val currencyCode: String,
-    @Json(name = "currentPrice")
+    @SerializedName("currentPrice")
     val currentPrice: Double,
-    @Json(name = "exchange")
+    @SerializedName("exchange")
     val exchange: String,
-    @Json(name = "exchangeRate")
+    @SerializedName("exchangeRate")
     val exchangeRate: Int,
-    @Json(name = "exerciseOptionPrice")
+    @SerializedName("exerciseOptionPrice")
     val exerciseOptionPrice: Double,
-    @Json(name = "interactive")
+    @SerializedName("interactive")
     val interactive: Boolean,
-    @Json(name = "numberOfShares")
+    @SerializedName("numberOfShares")
     val numberOfShares: Int,
-    @Json(name = "sharePrice")
+    @SerializedName("sharePrice")
     val sharePrice: Double,
-    @Json(name = "ticker")
+    @SerializedName("ticker")
     val ticker: String
 )
