@@ -105,6 +105,7 @@ dependencies {
     implementation Libs.AndroidX.Activity.activityCompose
     implementation Libs.AndroidX.Lifecycle.viewModelCompose
     implementation Libs.AndroidX.Navigation.navigationCompose
+
     implementation Libs.AndroidX.ConstraintLayout.constraintLayoutCompose
 
     implementation Libs.AndroidX.Compose.runtime
@@ -136,6 +137,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     implementation 'javax.inject:javax.inject:1'
+
 
 
     //dagger

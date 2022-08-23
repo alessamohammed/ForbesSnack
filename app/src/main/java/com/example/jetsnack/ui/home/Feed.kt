@@ -26,12 +26,8 @@ import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,16 +39,24 @@ import com.example.jetsnack.ui.components.FilterBar
 import com.example.jetsnack.ui.components.JetsnackSurface
 import com.example.jetsnack.ui.components.SnackCollection
 import com.example.jetsnack.ui.theme.JetsnackTheme
+import com.example.jetsnack.data.repository.BillionaireRepository
+import com.example.jetsnack.domain.model.request.Billionaire
+
 
 @Composable
 fun Feed(
     onSnackClick: (Long) -> Unit,
-    modifier: Modifier = Modifier
-) {
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel
+)
+{
+    val billionaireList by viewModel.billionaireState.collectAsState()
     val snackCollections = remember { SnackRepo.getSnacks() }
     val filters = remember { SnackRepo.getFilters() }
+
+    viewModel.getBillionaires()
     Feed(
-        snackCollections,
+        billionaireList,
         filters,
         onSnackClick,
         modifier
@@ -61,14 +65,14 @@ fun Feed(
 
 @Composable
 private fun Feed(
-    snackCollections: List<SnackCollection>,
+    billionaireList: List<Billionaire>,
     filters: List<Filter>,
     onSnackClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     JetsnackSurface(modifier = modifier.fillMaxSize()) {
         Box {
-            SnackCollectionList(snackCollections, filters, onSnackClick)
+            SnackCollectionList(billionaireList, filters, onSnackClick)
             DestinationBar()
         }
     }
@@ -77,7 +81,7 @@ private fun Feed(
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 private fun SnackCollectionList(
-    snackCollections: List<SnackCollection>,
+    billionaireList: List<Billionaire>,
     filters: List<Filter>,
     onSnackClick: (Long) -> Unit,
     modifier: Modifier = Modifier
@@ -86,8 +90,6 @@ private fun SnackCollectionList(
     Box(modifier) {
 
         Column (modifier = Modifier.align(Alignment.TopStart)){
-
-
                 Spacer(
                     Modifier.windowInsetsTopHeight(
                         WindowInsets.statusBars.add(WindowInsets(top = 56.dp))
@@ -96,7 +98,7 @@ private fun SnackCollectionList(
                 FilterBar(filters, onShowFilters = { filtersVisible = true })
 
                     SnackCollection(
-                        snackCollection = snackCollections[0],
+                        billionaireList = billionaireList,
                         onSnackClick = onSnackClick,
                         index = 0
                     )
@@ -122,7 +124,5 @@ private fun SnackCollectionList(
 @Preview("large font", fontScale = 2f)
 @Composable
 fun HomePreview() {
-    JetsnackTheme {
-        Feed(onSnackClick = { })
-    }
+
 }

@@ -265,10 +265,10 @@ private fun CartContent(
             )
         }
         item {
-            SnackCollection(
-                snackCollection = inspiredByCart,
-                onSnackClick = onSnackClick
-            )
+//            SnackCollection(
+//                snackCollection = inspiredByCart,
+//                onSnackClick = onSnackClick
+//            )
             Spacer(Modifier.height(56.dp))
         }
     }

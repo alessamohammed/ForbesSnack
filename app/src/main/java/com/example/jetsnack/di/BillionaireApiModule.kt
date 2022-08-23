@@ -2,6 +2,7 @@ package com.example.jetsnack.di
 
 import com.example.jetsnack.data.Api.ApiConstants
 import com.example.jetsnack.data.Api.BillionaireApi
+import com.example.jetsnack.data.repository.BillionaireRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,5 +30,11 @@ object BillionaireApiModule {
             .baseUrl(ApiConstants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
 
+    }
+
+    @Provides
+    @Singleton
+    fun provideBillionaireRepository(billionaireApi: BillionaireApi): BillionaireRepository {
+        return BillionaireRepository(billionaireApi)
     }
 }

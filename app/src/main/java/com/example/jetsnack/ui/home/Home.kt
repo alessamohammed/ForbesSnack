@@ -77,10 +77,11 @@ import java.util.*
 
 fun NavGraphBuilder.addHomeGraph(
     onSnackSelected: (Long, NavBackStackEntry) -> Unit,
-    modifier: Modifier = Modifier
+    viewModel: HomeViewModel,
+    modifier: Modifier = Modifier,
 ) {
     composable(HomeSections.FEED.route) { from ->
-        Feed(onSnackClick = { id -> onSnackSelected(id, from) }, modifier)
+        Feed(onSnackClick = { id -> onSnackSelected(id, from) }, modifier, viewModel)
     }
     composable(HomeSections.SEARCH.route) { from ->
         Search(onSnackClick = { id -> onSnackSelected(id, from) }, modifier)

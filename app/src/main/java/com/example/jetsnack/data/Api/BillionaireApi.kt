@@ -5,7 +5,7 @@ import retrofit2.http.GET
 
 interface BillionaireApi {
 
-    @GET("?limit=100")
+    @GET("Forbes400?limit=100")
     suspend fun getBillionaires(): List<Billionaire>
 
 }

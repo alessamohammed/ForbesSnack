@@ -7,7 +7,7 @@ data class Billionaire(
     @SerializedName("abouts")
     val abouts: List<String>,
     @SerializedName("archivedWorth")
-    val archivedWorth: Int,
+    val archivedWorth: String,
     @SerializedName("bio")
     val bio: String,
     @SerializedName("bioSuppress")
@@ -25,7 +25,7 @@ data class Billionaire(
     @SerializedName("date")
     val date: Long,
     @SerializedName("estWorthPrev")
-    val estWorthPrev: Double,
+    val estWorthPrev: String,
     @SerializedName("familyList")
     val familyList: Boolean,
     @SerializedName("finalWorth")
@@ -53,11 +53,11 @@ data class Billionaire(
     @SerializedName("personName")
     val personName: String,
     @SerializedName("position")
-    val position: Int,
+    val position: String,
     @SerializedName("privateAssetsWorth")
-    val privateAssetsWorth: Double,
+    val privateAssetsWorth: String,
     @SerializedName("rank")
-    val rank: Int,
+    val rank: String,
     @SerializedName("source")
     val source: String,
     @SerializedName("squareImage")
@@ -71,11 +71,11 @@ data class Billionaire(
     @SerializedName("uri")
     val uri: String,
     @SerializedName("version")
-    val version: Int,
+    val version: String,
     @SerializedName("visible")
     val visible: Boolean,
     @SerializedName("wealthList")
     val wealthList: Boolean,
     @SerializedName("year")
-    val year: Int
+    val year: String
 )

@@ -1,9 +1,10 @@
 package com.example.jetsnack.ui.home
 
+import android.icu.util.Calendar
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.jetsnack.data.repository.BillionaireRepo
+import com.example.jetsnack.data.repository.BillionaireRepository
 import com.example.jetsnack.domain.model.request.Billionaire
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,20 +14,26 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val billionaireRepo: BillionaireRepo
+    private val billionaireRepository: BillionaireRepository
 ):ViewModel() {
 
-    private val _state = MutableStateFlow(emptyList<Billionaire>())
-    val state: StateFlow<List<Billionaire>>
-    get() = _state
+    private val _billionaireState = MutableStateFlow(emptyList<Billionaire>())
+    val billionaireState: StateFlow<List<Billionaire>>
+    get() = _billionaireState
 
     init {
 
         viewModelScope.launch {
-            val billionaires = billionaireRepo.getBillionaires()
-            Log.d("billionaires", billionaires.toString())
+            val billionaires = billionaireRepository.getBillionaires()
+            _billionaireState.value = billionaires
 
+        }
+    }
 
+    fun getBillionaires() {
+        viewModelScope.launch {
+            val billionaires = billionaireRepository.getBillionaires()
+            _billionaireState.value = billionaires
         }
     }
 }

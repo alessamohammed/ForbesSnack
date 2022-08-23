@@ -31,13 +31,14 @@ import androidx.navigation.navigation
 import com.example.jetsnack.ui.components.JetsnackScaffold
 import com.example.jetsnack.ui.components.JetsnackSnackbar
 import com.example.jetsnack.ui.home.HomeSections
+import com.example.jetsnack.ui.home.HomeViewModel
 import com.example.jetsnack.ui.home.JetsnackBottomBar
 import com.example.jetsnack.ui.home.addHomeGraph
 import com.example.jetsnack.ui.snackdetail.SnackDetail
 import com.example.jetsnack.ui.theme.JetsnackTheme
 
 @Composable
-fun JetsnackApp() {
+fun JetsnackApp(homeViewModel: HomeViewModel) {
     JetsnackTheme {
         val appState = rememberJetsnackAppState()
         JetsnackScaffold(
@@ -66,7 +67,8 @@ fun JetsnackApp() {
             ) {
                 jetsnackNavGraph(
                     onSnackSelected = appState::navigateToSnackDetail,
-                    upPress = appState::upPress
+                    upPress = appState::upPress,
+                    homeViewModel = homeViewModel
                 )
             }
         }
@@ -75,13 +77,14 @@ fun JetsnackApp() {
 
 private fun NavGraphBuilder.jetsnackNavGraph(
     onSnackSelected: (Long, NavBackStackEntry) -> Unit,
-    upPress: () -> Unit
+    upPress: () -> Unit,
+    homeViewModel: HomeViewModel
 ) {
     navigation(
         route = MainDestinations.HOME_ROUTE,
-        startDestination = HomeSections.FEED.route
+        startDestination = HomeSections.FEED.route,
     ) {
-        addHomeGraph(onSnackSelected)
+        addHomeGraph(onSnackSelected, homeViewModel)
     }
     composable(
         "${MainDestinations.SNACK_DETAIL_ROUTE}/{${MainDestinations.SNACK_ID_KEY}}",
