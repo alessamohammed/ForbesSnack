@@ -163,6 +163,15 @@ private fun billionaireItem(
     }
     else
         netWorth = String.format("%.2f",billionaire.finalWorth) + " M"
+
+    var squareImage = if (billionaire.squareImage.startsWith("http"))
+    {
+        billionaire.squareImage
+    }
+    else
+    {
+        "https:${billionaire.squareImage}"
+    }
     JetsnackCard(
         modifier = modifier
             .size(
@@ -188,15 +197,14 @@ private fun billionaireItem(
                         .fillMaxWidth()
                         .offsetGradientBackground(gradient, gradientWidth, gradientOffset)
                 )
-                billionaire?.squareImage?.let {
                     SnackImage(
-                        imageUrl = it,
+                        imageUrl = squareImage,
                         contentDescription = null,
                         modifier = Modifier
                             .size(120.dp)
                             .align(Alignment.BottomCenter)
                     )
-                }
+
             }
             Spacer(modifier = Modifier.height(8.dp))
             Text(
@@ -205,14 +213,13 @@ private fun billionaireItem(
                 overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.h5,
                 color = JetsnackTheme.colors.textSecondary,
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)
             )
-            Row(modifier = Modifier
-                .fillMaxSize(),
-                horizontalArrangement = Arrangement.SpaceAround)
+            Row(modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween)
             {
                         Column (
-                            modifier = Modifier.padding(start = 8.dp),
+                            modifier = Modifier.padding(start = 8.dp, end =8.dp),
                                 ) {
                             Row {
                                 Text(
@@ -225,13 +232,48 @@ private fun billionaireItem(
                                 )
 
                                 Text(
-                                    text = billionaire.rank,
+                                    text = billionaire.rank.trim(),
                                     style = MaterialTheme.typography.body2,
                                     color = JetsnackTheme.colors.textHelp,
                                     textAlign = TextAlign.Start
                                 )
                             }
+
                             Spacer(modifier = Modifier.height(8.dp))
+                            }
+                Column (modifier = Modifier
+                    .padding(end =2.dp)
+                ) {
+                    Row {
+                        Text(
+                            text = stringResource(R.string.billionaires_age) + ": ",
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            style = MaterialTheme.typography.body1,
+                            color = JetsnackTheme.colors.textSecondary,
+                            textAlign = TextAlign.Start
+                        )
+                        ageYear =  (Date(billionaire.timestamp).year - Date(billionaire.birthDate).year).toString()
+
+                        Text(
+                            text = ageYear,
+                            style = MaterialTheme.typography.body2,
+                            color = JetsnackTheme.colors.textHelp,
+                            textAlign = TextAlign.Start
+                        )
+                    }
+
+
+            }
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+            Row(modifier = Modifier,
+                horizontalArrangement = Arrangement.SpaceAround)
+            {
+                        Column (
+                            modifier = Modifier.padding(start = 8.dp, end =8.dp),
+                                ) {
+
                             Row {
                                 Text(
                                     text = stringResource(R.string.billionaires_net_worth) + ": ",
@@ -249,54 +291,12 @@ private fun billionaireItem(
                                     textAlign = TextAlign.Start
                                 )
                             }
+
                             Spacer(modifier = Modifier.height(8.dp))
-                            Row (Modifier.align(Alignment.Start),
-                                horizontalArrangement = Arrangement.Start){
-                                Text(
-                                    text = stringResource(R.string.billionaires_source) + ": ",
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis,
-                                    style = MaterialTheme.typography.body1,
-                                    color = JetsnackTheme.colors.textSecondary,
-                                    textAlign = TextAlign.Start
-                                )
-
-                                Text(
-                                    text = billionaire.source,
-                                    style = MaterialTheme.typography.body2,
-                                    color = JetsnackTheme.colors.textHelp,
-                                    textAlign = TextAlign.Start
-                                )
-                            }
-
                             }
                 Column (modifier = Modifier
-                    .padding(end =4.dp)
+                    .padding(end =2.dp)
                 ) {
-
-
-
-                    ageYear =  (Date(billionaire.timestamp).year - Date(billionaire.birthDate).year).toString()
-
-
-                    Row {
-                        Text(
-                            text = stringResource(R.string.billionaires_age) + ": ",
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            style = MaterialTheme.typography.body1,
-                            color = JetsnackTheme.colors.textSecondary,
-                            textAlign = TextAlign.Start
-                        )
-
-                        Text(
-                            text = ageYear,
-                            style = MaterialTheme.typography.body2,
-                            color = JetsnackTheme.colors.textHelp,
-                            textAlign = TextAlign.Start
-                        )
-                    }
-                    Spacer(modifier = Modifier.height(8.dp))
                     Row {
                         Text(
                             text = stringResource(R.string.billionaires_residence) + ": ",
@@ -308,16 +308,37 @@ private fun billionaireItem(
                         )
 
                         Text(
-                            text = billionaire.countryOfCitizenship,
+                            text = billionaire.countryOfCitizenship.trim(),
                             style = MaterialTheme.typography.body2,
                             color = JetsnackTheme.colors.textHelp,
-                            textAlign = TextAlign.Start
+                            textAlign = TextAlign.Start,
+                            maxLines = 1
                         )
                     }
-
-
                             }
+
             }
+            Row (Modifier
+                .align(Alignment.Start)
+                .padding(start = 8.dp),
+                horizontalArrangement = Arrangement.Start){
+                Text(
+                    text = stringResource(R.string.billionaires_source) + ": ",
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.body1,
+                    color = JetsnackTheme.colors.textSecondary,
+                    textAlign = TextAlign.Start
+                )
+
+                Text(
+                    text = billionaire.source.trim(),
+                    style = MaterialTheme.typography.body2,
+                    color = JetsnackTheme.colors.textHelp,
+                    textAlign = TextAlign.Start
+                )
+            }
+
         }
     }
 }
@@ -343,7 +364,7 @@ fun SnackImage(
             contentDescription = contentDescription,
             placeholder = painterResource(R.drawable.placeholder),
             modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop,
+            contentScale = ContentScale.FillBounds,
         )
     }
 }

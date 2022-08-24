@@ -54,7 +54,6 @@ fun Feed(
     val snackCollections = remember { SnackRepo.getSnacks() }
     val filters = remember { SnackRepo.getFilters() }
 
-    viewModel.getBillionaires()
     Feed(
         billionaireList,
         filters,

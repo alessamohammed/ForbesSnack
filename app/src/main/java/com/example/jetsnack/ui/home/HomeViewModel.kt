@@ -24,16 +24,25 @@ class HomeViewModel @Inject constructor(
     init {
 
         viewModelScope.launch {
+        try {
             val billionaires = billionaireRepository.getBillionaires()
             _billionaireState.value = billionaires
-
+        }
+        catch (e: Exception) {
+            Log.e("HomeViewModel", e.message!!)
+        }
         }
     }
 
-    fun getBillionaires() {
+    suspend fun getBillionaires() {
         viewModelScope.launch {
-            val billionaires = billionaireRepository.getBillionaires()
-            _billionaireState.value = billionaires
+            try {
+                val billionaires = billionaireRepository.getBillionaires()
+                _billionaireState.value = billionaires
+            }
+            catch (e: Exception) {
+                Log.e("HomeViewModel", e.message!!)
+            }
         }
     }
 }

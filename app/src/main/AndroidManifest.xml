@@ -15,9 +15,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.jetsnack">
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <!--Load images from Unsplash-->
-    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name="com.example.jetsnack.BillionaireApplication"
@@ -41,5 +38,6 @@
         </activity>
 
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
