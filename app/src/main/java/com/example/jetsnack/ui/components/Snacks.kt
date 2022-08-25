@@ -90,18 +90,18 @@ fun SnackCollection(
                     .weight(1f)
                     .wrapContentWidth(Alignment.Start)
             )
-            IconButton(
-                onClick = { /* todo */ }
-            ) {
-                Icon(
-                    imageVector = mirroringIcon(
-                        ltrIcon = Icons.Outlined.ArrowForward,
-                        rtlIcon = Icons.Outlined.ArrowBack
-                    ),
-                    tint = JetsnackTheme.colors.brand,
-                    contentDescription = null
-                )
-            }
+//            IconButton(
+//                onClick = { /* todo */ }
+//            ) {
+//                Icon(
+//                    imageVector = mirroringIcon(
+//                        ltrIcon = Icons.Outlined.ArrowForward,
+//                        rtlIcon = Icons.Outlined.ArrowBack
+//                    ),
+//                    tint = JetsnackTheme.colors.brand,
+//                    contentDescription = null
+//                )
+//            }
         }
             HighlightedSnacks(index, billionaireList, onSnackClick)
 
@@ -216,10 +216,13 @@ private fun billionaireItem(
                 modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)
             )
             Row(modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween)
+                horizontalArrangement = Arrangement.Start)
             {
                         Column (
-                            modifier = Modifier.padding(start = 8.dp, end =8.dp),
+                            modifier = Modifier
+                                .padding(start = 8.dp)
+                                .fillMaxWidth(0.5f)
+                            ,
                                 ) {
                             Row {
                                 Text(
@@ -243,6 +246,8 @@ private fun billionaireItem(
                             }
                 Column (modifier = Modifier
                     .padding(end =2.dp)
+                    .fillMaxWidth(0.5f)
+
                 ) {
                     Row {
                         Text(
@@ -268,10 +273,13 @@ private fun billionaireItem(
                 Spacer(modifier = Modifier.height(8.dp))
             }
             Row(modifier = Modifier,
-                horizontalArrangement = Arrangement.SpaceAround)
+                horizontalArrangement = Arrangement.Start)
             {
                         Column (
-                            modifier = Modifier.padding(start = 8.dp, end =8.dp),
+                            modifier = Modifier
+                                .padding(start = 8.dp)
+                                .fillMaxWidth(0.5f)
+                            ,
                                 ) {
 
                             Row {
@@ -299,8 +307,8 @@ private fun billionaireItem(
                 ) {
                     Row {
                         Text(
-                            text = stringResource(R.string.billionaires_residence) + ": ",
-                            maxLines = 1,
+                            text = stringResource(R.string.billionaires_country) + ": ",
+                            maxLines = 2,
                             overflow = TextOverflow.Ellipsis,
                             style = MaterialTheme.typography.body1,
                             color = JetsnackTheme.colors.textSecondary,
@@ -312,7 +320,7 @@ private fun billionaireItem(
                             style = MaterialTheme.typography.body2,
                             color = JetsnackTheme.colors.textHelp,
                             textAlign = TextAlign.Start,
-                            maxLines = 1
+                            maxLines = 2
                         )
                     }
                             }

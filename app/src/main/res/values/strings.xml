@@ -84,8 +84,8 @@
     <string name="billionaires_age">Age</string>
     // Net Worth
     <string name="billionaires_net_worth">Net Worth</string>
-    // Residence
-    <string name="billionaires_residence">Residence</string>
+    // Country
+    <string name="billionaires_country">Country</string>
     // Source
     <string name="billionaires_source">Source</string>
 

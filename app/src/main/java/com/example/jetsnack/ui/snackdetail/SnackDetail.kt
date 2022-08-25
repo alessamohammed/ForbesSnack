@@ -100,8 +100,8 @@ fun SnackDetail(
 
     Box(Modifier.fillMaxSize()) {
         val scroll = rememberScrollState(0)
-//        Header()
-//        Body(related, scroll)
+        Header()
+        Body(related, scroll)
 //        Title(snack) { scroll.value }
 //        Image(snack.imageUrl) { scroll.value }
 //        Up(upPress)
@@ -145,75 +145,76 @@ private fun Body(
     related: List<SnackCollection>,
     scroll: ScrollState
 ) {
-//    Column {
-//        Spacer(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .statusBarsPadding()
-//                .height(MinTitleOffset)
-//        )
-//        Column(
-//            modifier = Modifier.verticalScroll(scroll)
-//        ) {
-//            Spacer(Modifier.height(GradientScroll))
-//            JetsnackSurface(Modifier.fillMaxWidth()) {
-//                Column {
-//                    Spacer(Modifier.height(ImageOverlap))
-//                    Spacer(Modifier.height(TitleHeight))
-//
-//                    Spacer(Modifier.height(16.dp))
-//                    Text(
-//                        text = stringResource(R.string.detail_header),
-//                        style = MaterialTheme.typography.overline,
-//                        color = JetsnackTheme.colors.textHelp,
-//                        modifier = HzPadding
-//                    )
-//                    Spacer(Modifier.height(16.dp))
-//                    var seeMore by remember { mutableStateOf(true) }
-//                    Text(
-//                        text = stringResource(R.string.detail_placeholder),
-//                        style = MaterialTheme.typography.body1,
-//                        color = JetsnackTheme.colors.textHelp,
-//                        maxLines = if (seeMore) 5 else Int.MAX_VALUE,
-//                        overflow = TextOverflow.Ellipsis,
-//                        modifier = HzPadding
-//                    )
-//                    val textButton = if (seeMore) {
-//                        stringResource(id = R.string.see_more)
-//                    } else {
-//                        stringResource(id = R.string.see_less)
-//                    }
-//                    Text(
-//                        text = textButton,
-//                        style = MaterialTheme.typography.button,
-//                        textAlign = TextAlign.Center,
-//                        color = JetsnackTheme.colors.textLink,
-//                        modifier = Modifier
-//                            .heightIn(20.dp)
-//                            .fillMaxWidth()
-//                            .padding(top = 15.dp)
-//                            .clickable {
-//                                seeMore = !seeMore
-//                            }
-//                    )
-//                    Spacer(Modifier.height(40.dp))
-//                    Text(
-//                        text = stringResource(R.string.ingredients),
-//                        style = MaterialTheme.typography.overline,
-//                        color = JetsnackTheme.colors.textHelp,
-//                        modifier = HzPadding
-//                    )
-//                    Spacer(Modifier.height(4.dp))
-//                    Text(
-//                        text = stringResource(R.string.ingredients_list),
-//                        style = MaterialTheme.typography.body1,
-//                        color = JetsnackTheme.colors.textHelp,
-//                        modifier = HzPadding
-//                    )
-//
-//                    Spacer(Modifier.height(16.dp))
-//                    JetsnackDivider()
-//
+    Column {
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .statusBarsPadding()
+                .height(MinTitleOffset)
+        )
+        Column(
+            modifier = Modifier.verticalScroll(scroll)
+        ) {
+            Spacer(Modifier.height(GradientScroll))
+            JetsnackSurface(Modifier.fillMaxWidth()) {
+                Column {
+                    Spacer(Modifier.height(ImageOverlap))
+                    Spacer(Modifier.height(TitleHeight))
+
+                    Spacer(Modifier.height(16.dp))
+                    Text(
+                        text = stringResource(R.string.detail_header),
+                        style = MaterialTheme.typography.overline,
+                        color = JetsnackTheme.colors.textHelp,
+                        modifier = HzPadding
+                    )
+                    Spacer(Modifier.height(16.dp))
+                    var seeMore by remember { mutableStateOf(true) }
+                    Text(
+                        text = stringResource(R.string.detail_placeholder),
+                        style = MaterialTheme.typography.body1,
+                        color = JetsnackTheme.colors.textHelp,
+                        maxLines = if (seeMore) 5 else Int.MAX_VALUE,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = HzPadding
+                    )
+
+                    val textButton = if (seeMore) {
+                        stringResource(id = R.string.see_more)
+                    } else {
+                        stringResource(id = R.string.see_less)
+                    }
+                    Text(
+                        text = textButton,
+                        style = MaterialTheme.typography.button,
+                        textAlign = TextAlign.Center,
+                        color = JetsnackTheme.colors.textLink,
+                        modifier = Modifier
+                            .heightIn(20.dp)
+                            .fillMaxWidth()
+                            .padding(top = 15.dp)
+                            .clickable {
+                                seeMore = !seeMore
+                            }
+                    )
+                    Spacer(Modifier.height(40.dp))
+                    Text(
+                        text = stringResource(R.string.ingredients),
+                        style = MaterialTheme.typography.overline,
+                        color = JetsnackTheme.colors.textHelp,
+                        modifier = HzPadding
+                    )
+                    Spacer(Modifier.height(4.dp))
+                    Text(
+                        text = stringResource(R.string.ingredients_list),
+                        style = MaterialTheme.typography.body1,
+                        color = JetsnackTheme.colors.textHelp,
+                        modifier = HzPadding
+                    )
+
+                    Spacer(Modifier.height(16.dp))
+                    JetsnackDivider()
+
 //                    related.forEach { snackCollection ->
 //                        key(snackCollection.id) {
 //                            SnackCollection(
@@ -222,17 +223,17 @@ private fun Body(
 //                            )
 //                        }
 //                    }
-//
-//                    Spacer(
-//                        modifier = Modifier
-//                            .padding(bottom = BottomBarHeight)
-//                            .navigationBarsPadding()
-//                            .height(8.dp)
-//                    )
-//                }
-//            }
-//        }
-//    }
+
+                    Spacer(
+                        modifier = Modifier
+                            .padding(bottom = BottomBarHeight)
+                            .navigationBarsPadding()
+                            .height(8.dp)
+                    )
+                }
+            }
+        }
+    }
 }
 
 @Composable

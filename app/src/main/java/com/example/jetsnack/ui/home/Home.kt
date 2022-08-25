@@ -70,7 +70,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.example.jetsnack.R
 import com.example.jetsnack.ui.components.JetsnackSurface
-import com.example.jetsnack.ui.home.cart.Cart
 import com.example.jetsnack.ui.home.search.Search
 import com.example.jetsnack.ui.theme.JetsnackTheme
 import java.util.*
@@ -86,9 +85,6 @@ fun NavGraphBuilder.addHomeGraph(
     composable(HomeSections.SEARCH.route) { from ->
         Search(onSnackClick = { id -> onSnackSelected(id, from) }, modifier)
     }
-    composable(HomeSections.CART.route) { from ->
-        Cart(onSnackClick = { id -> onSnackSelected(id, from) }, modifier)
-    }
     composable(HomeSections.PROFILE.route) {
         Profile(modifier)
     }
@@ -101,7 +97,6 @@ enum class HomeSections(
 ) {
     FEED(R.string.home_feed, Icons.Outlined.Home, "home/feed"),
     SEARCH(R.string.home_search, Icons.Outlined.Search, "home/search"),
-    CART(R.string.home_cart, Icons.Outlined.ShoppingCart, "home/cart"),
     PROFILE(R.string.home_profile, Icons.Outlined.AccountCircle, "home/profile")
 }
 

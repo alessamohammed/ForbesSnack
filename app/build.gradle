@@ -124,21 +124,20 @@ dependencies {
 
     implementation Libs.Coil.coilCompose
 
-
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation("com.squareup.okhttp3:okhttp:4.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'androidx.hilt:hilt-navigation-fragment:1.0.0'
     implementation 'androidx.hilt:hilt-work:1.0.0'
-    // When using Kotlin.
     kapt 'androidx.hilt:hilt-compiler:1.0.0'
     // JSON Converter
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     implementation 'javax.inject:javax.inject:1'
+    def work_version = "2.7.0"
 
-
+    implementation "androidx.work:work-runtime-ktx:$work_version"
 
     //dagger
     implementation "com.google.dagger:hilt-android:2.42"
