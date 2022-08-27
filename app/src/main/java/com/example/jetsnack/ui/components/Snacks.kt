@@ -53,9 +53,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.jetsnack.R
-import com.example.jetsnack.domain.model.Billionaire
 import com.example.jetsnack.domain.model.SnackCollection
-import com.example.jetsnack.domain.model.billionaires
 import com.example.jetsnack.ui.theme.JetsnackTheme
 import com.example.jetsnack.ui.utils.mirroringIcon
 import java.text.SimpleDateFormat

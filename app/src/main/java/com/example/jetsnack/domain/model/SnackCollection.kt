@@ -17,6 +17,7 @@
 package com.example.jetsnack.domain.model
 
 import androidx.compose.runtime.Immutable
+import com.example.jetsnack.domain.model.request.Billionaire
 
 @Immutable
 data class SnackCollection(
@@ -32,13 +33,9 @@ enum class CollectionType { Normal, Highlight }
  * A fake repo
  */
 object BillionaireRepo {
-    fun getSnacks(): List<SnackCollection> = snackCollections
-    fun getSnack(snackId: Long) = billionaires.find { it.id == snackId }!!
-    fun getRelated(@Suppress("UNUSED_PARAMETER") snackId: Long) = related
-    fun getInspiredByCart() = inspiredByCart
+    fun getRelated(@Suppress("UNUSED_PARAMETER") snackId: Long) = ""
     fun getFilters() = filters
     fun getPriceFilters() = priceFilters
-    fun getCart() = cart
     fun getSortFilters() = sortFilters
     fun getCategoryFilters() = categoryFilters
     fun getSortDefault() = sortDefault
@@ -48,41 +45,3 @@ object BillionaireRepo {
 /**
  * Static data
  */
-
-private val tastyTreats = SnackCollection(
-    id = 1L,
-    name = "Android's picks",
-    type = CollectionType.Highlight,
-    billionaires = billionaires.subList(0, 3)
-)
-
-
-private val also = tastyTreats.copy(
-    id = 6L,
-    name = "Customers also bought"
-)
-
-private val inspiredByCart = tastyTreats.copy(
-    id = 7L,
-    name = "Inspired by your cart"
-)
-
-private val snackCollections = listOf(
-    tastyTreats
-)
-
-private val related = listOf(
-    also
-)
-
-private val cart = listOf(
-    OrderLine(billionaires[2], 2),
-    OrderLine(billionaires[1], 3),
-    OrderLine(billionaires[0], 1)
-)
-
-@Immutable
-data class OrderLine(
-    val billionaire: Billionaire,
-    val count: Int
-)

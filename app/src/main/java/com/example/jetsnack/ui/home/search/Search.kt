@@ -57,8 +57,8 @@ import com.example.jetsnack.domain.model.Filter
 import com.example.jetsnack.domain.model.SearchCategoryCollection
 import com.example.jetsnack.domain.model.SearchRepo
 import com.example.jetsnack.domain.model.SearchSuggestionGroup
-import com.example.jetsnack.domain.model.Billionaire
 import com.example.jetsnack.domain.model.BillionaireRepo
+import com.example.jetsnack.domain.model.request.Billionaire
 import com.example.jetsnack.ui.components.JetsnackDivider
 import com.example.jetsnack.ui.components.JetsnackSurface
 import com.example.jetsnack.ui.theme.JetsnackTheme
@@ -85,7 +85,7 @@ fun Search(
 
             LaunchedEffect(state.query.text) {
                 state.searching = true
-                state.searchResults = SearchRepo.search(state.query.text)
+//                state.searchResults = SearchRepo.search(state.query.text)
                 state.searching = false
             }
             when (state.searchDisplay) {

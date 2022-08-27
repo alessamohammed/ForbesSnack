@@ -17,6 +17,7 @@
 package com.example.jetsnack.domain.model
 
 import androidx.compose.runtime.Immutable
+import com.example.jetsnack.domain.model.request.Billionaire
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
@@ -28,10 +29,7 @@ object SearchRepo {
     fun getCategories(): List<SearchCategoryCollection> = searchCategoryCollections
     fun getSuggestions(): List<SearchSuggestionGroup> = searchSuggestions
 
-    suspend fun search(query: String): List<Billionaire> = withContext(Dispatchers.Default) {
-        delay(200L) // simulate an I/O delay
-        billionaires.filter { it.name.contains(query, ignoreCase = true) }
-    }
+
 }
 
 @Immutable

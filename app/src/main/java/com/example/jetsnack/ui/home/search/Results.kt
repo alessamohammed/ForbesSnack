@@ -48,8 +48,7 @@ import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.jetsnack.R
 import com.example.jetsnack.domain.model.Filter
-import com.example.jetsnack.domain.model.Billionaire
-import com.example.jetsnack.domain.model.billionaires
+import com.example.jetsnack.domain.model.request.Billionaire
 import com.example.jetsnack.ui.components.FilterBar
 import com.example.jetsnack.ui.components.JetsnackButton
 import com.example.jetsnack.ui.components.JetsnackDivider
@@ -89,7 +88,7 @@ private fun SearchResult(
     ConstraintLayout(
         modifier = modifier
             .fillMaxWidth()
-            .clickable { onSnackClick(billionaire.id) }
+//            .clickable { onSnackClick(billionaire) }
             .padding(horizontal = 24.dp)
     ) {
         val (divider, image, name, tag, priceSpacer, price, add) = createRefs()
@@ -103,7 +102,7 @@ private fun SearchResult(
             )
         }
         SnackImage(
-            imageUrl = billionaire.imageUrl,
+            imageUrl = billionaire.squareImage,
             contentDescription = null,
             modifier = Modifier
                 .size(100.dp)
@@ -215,21 +214,5 @@ fun NoResults(
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()
         )
-    }
-}
-
-@Preview("default")
-@Preview("dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Preview("large font", fontScale = 2f)
-@Composable
-private fun SearchResultPreview() {
-    JetsnackTheme {
-        JetsnackSurface {
-            SearchResult(
-                billionaire = billionaires[0],
-                onSnackClick = { },
-                showDivider = false
-            )
-        }
     }
 }

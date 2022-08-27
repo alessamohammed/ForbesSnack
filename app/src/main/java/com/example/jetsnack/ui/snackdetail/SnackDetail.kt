@@ -91,7 +91,7 @@ fun SnackDetail(
     Box(Modifier.fillMaxSize()) {
         val scroll = rememberScrollState(0)
         Header()
-        Body(billionaire, related, scroll)
+        Body(billionaire, scroll)
         Title(billionaire) { scroll.value }
         Image(squareImage) { scroll.value }
         Up(upPress)
@@ -133,7 +133,6 @@ private fun Up(upPress: () -> Unit) {
 @Composable
 private fun Body(
     billionaire: com.example.jetsnack.domain.model.request.Billionaire,
-    related: List<SnackCollection>,
     scroll: ScrollState
 ) {
     var bio = ""

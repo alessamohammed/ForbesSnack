@@ -3,6 +3,7 @@ package com.example.jetsnack.di
 import com.example.jetsnack.data.Api.ApiConstants
 import com.example.jetsnack.data.Api.BillionaireApi
 import com.example.jetsnack.data.repository.BillionaireRepository
+import com.example.jetsnack.data.repository.BillionaireRepository_impl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,6 +36,6 @@ object BillionaireApiModule {
     @Provides
     @Singleton
     fun provideBillionaireRepository(billionaireApi: BillionaireApi): BillionaireRepository {
-        return BillionaireRepository(billionaireApi)
+        return BillionaireRepository_impl(billionaireApi)
     }
 }
