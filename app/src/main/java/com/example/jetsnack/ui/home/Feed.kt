@@ -48,11 +48,9 @@ fun Feed(
 )
 {
     val billionaireList by viewModel.billionaireState.collectAsState()
-    val filters = remember { BillionaireRepo.getFilters() }
 
     Feed(
         billionaireList,
-        filters,
         onSnackClick,
         modifier,
         viewModel
@@ -62,14 +60,13 @@ fun Feed(
 @Composable
 private fun Feed(
     billionaireList: List<Billionaire>,
-    filters: List<Filter>,
     onSnackClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
     homeViewModel: HomeViewModel
 ) {
     JetsnackSurface(modifier = modifier.fillMaxSize()) {
         Box {
-            SnackCollectionList(billionaireList, filters, onSnackClick, homeViewModel)
+            SnackCollectionList(billionaireList, onSnackClick, homeViewModel)
         }
     }
 }
@@ -78,7 +75,6 @@ private fun Feed(
 @Composable
 private fun SnackCollectionList(
     billionaireList: List<Billionaire>,
-    filters: List<Filter>,
     onSnackClick: (Long) -> Unit,
     homeViewModel: HomeViewModel,
     modifier: Modifier = Modifier,
@@ -93,7 +89,7 @@ private fun SnackCollectionList(
                         WindowInsets.statusBars.add(WindowInsets(top = 10.dp))
                     )
                 )
-                FilterBar(filters, onShowFilters = { filtersVisible = true }, homeViewModel = homeViewModel)
+                FilterBar(onShowFilters = { filtersVisible = true }, homeViewModel = homeViewModel)
 
                     SnackCollection(
                         billionaireList = billionaireList,
@@ -112,7 +108,8 @@ private fun SnackCollectionList(
         exit = slideOutVertically() + shrinkVertically() + fadeOut()
     ) {
         FilterScreen(
-            onDismiss = { filtersVisible = false }
+            onDismiss = { filtersVisible = false },
+            homeViewModel = homeViewModel
         )
     }
 }

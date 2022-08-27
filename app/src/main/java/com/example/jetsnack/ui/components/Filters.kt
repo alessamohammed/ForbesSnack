@@ -50,14 +50,14 @@ import com.example.jetsnack.ui.theme.JetsnackTheme
 
 @Composable
 fun FilterBar(
-    filters: List<Filter>,
     onShowFilters: () -> Unit,
     homeViewModel: HomeViewModel
 ) {
+
+    val filters by homeViewModel.filterState.collectAsState()
     var isPressed =List(filters.size) {  remember {
         mutableStateOf(false)
     } }
-    val Filters by homeViewModel.filterState.collectAsState()
     LazyRow(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -77,9 +77,9 @@ fun FilterBar(
                 )
             }
         }
-        items(Filters) { filter ->
+        items(filters) { filter ->
             FilterChip(filter = filter, shape = MaterialTheme.shapes.small, isPressed = isPressed
-            , id= Filters.indexOf(filter), homeViewModel = homeViewModel)
+            , id= filters.indexOf(filter), homeViewModel = homeViewModel)
         }
 
 

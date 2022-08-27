@@ -34,36 +34,30 @@ class Filter(
 ) {
     val enabled = mutableStateOf(enabled)
 }
-val filters = listOf(
-    Filter(name = "Youngest", id=1),
-    Filter(name = "Oldest", id=2),
-    Filter(name = "Women", id=3),
-    Filter(name = "Men", id=4)
-)
-val priceFilters = listOf(
-    Filter(name = "$"),
-    Filter(name = "$$"),
-    Filter(name = "$$$"),
-    Filter(name = "$$$$")
-)
-val sortFilters = listOf(
-    Filter(name = "Android's favorite (default)", icon = Icons.Filled.Android),
-    Filter(name = "Rating", icon = Icons.Filled.Star),
-    Filter(name = "Alphabetical", icon = Icons.Filled.SortByAlpha)
+val industryFilters = listOf(
+    Filter(name = "Technology", id=1),
+    Filter(name = "Automotive", id=2),
+    Filter(name = "Fashion", id=3),
+    Filter(name = "Diversified", id=4),
+    Filter(name = "Finance", id=5),
+    Filter(name = "Telecom", id=6),
+    Filter(name = "Media & Entertainment", id=7),
+    Filter(name = "Food & Beverage", id=8),
+    Filter(name = "Automotive", id=9),
+    Filter(name = "Logistics", id=10),
+    Filter(name = "Retail", id=11),
+    Filter(name = "Investments", id=12),
+    Filter(name = "Retail", id=13),
+    Filter(name = "Healthcare", id=14),
+    Filter(name = "Entertainment", id=15)
 )
 
-val categoryFilters = listOf(
-    Filter(name = "Chips & crackers"),
-    Filter(name = "Fruit snacks"),
-    Filter(name = "Desserts"),
-    Filter(name = "Nuts")
-)
-val lifeStyleFilters = listOf(
-    Filter(name = "Organic"),
-    Filter(name = "Gluten-free"),
-    Filter(name = "Dairy-free"),
-    Filter(name = "Sweet"),
-    Filter(name = "Savory")
+val sortFilters = listOf(
+    Filter(name = "Default", id=16),
+    Filter(name = "Youngest", id=17),
+    Filter(name = "Oldest", id=18),
+    Filter(name = "Women", id=19),
+    Filter(name = "Men", id=20)
 )
 
 var sortDefault = sortFilters.get(0).name

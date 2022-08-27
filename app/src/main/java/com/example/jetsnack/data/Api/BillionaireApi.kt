@@ -9,9 +9,10 @@ interface BillionaireApi {
     @GET("api/Forbes400?limit=100")
     suspend fun getBillionaires(): List<Billionaire>
 
-    // getBillionairesByFilter
-
     @GET("api/Forbes400/{filter}?limit=100")
     suspend fun getBillionairesByFilter(@Path("filter") filter: String): List<Billionaire>
 
+    // industry
+    @GET("api/Forbes400/industries/{filter}?limit=100")
+    suspend fun getBillionairesByIndustry(@Path("filter") industry: String): List<Billionaire>
 }

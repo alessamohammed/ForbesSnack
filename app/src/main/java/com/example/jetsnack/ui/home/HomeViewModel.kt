@@ -1,11 +1,9 @@
 package com.example.jetsnack.ui.home
 
-import android.icu.util.Calendar
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.jetsnack.data.repository.BillionaireRepository
-import com.example.jetsnack.data.repository.BillionaireRepository_impl
 import com.example.jetsnack.domain.model.BillionaireRepo
 import com.example.jetsnack.domain.model.Filter
 import com.example.jetsnack.domain.model.request.Billionaire
@@ -24,11 +22,21 @@ class HomeViewModel @Inject constructor(
     val billionaireState: StateFlow<List<Billionaire>>
     get() = _billionaireState
 
-    val filters = BillionaireRepo.getFilters()
+    val filters = BillionaireRepo.getIndustryFilters()
     private val _filterState = MutableStateFlow(filters)
     val filterState: StateFlow<List<Filter>>
         get() = _filterState
 
+    // sortState
+    private val _sortState = MutableStateFlow(BillionaireRepo.getSortDefault())
+    val sortState: MutableStateFlow<String>
+        get() = _sortState
+
+    // changeSortState
+    fun changeSortState(sort: String) {
+        _sortState.value = sort
+        changeFilterSort(sort)
+    }
     init {
 
         viewModelScope.launch {
@@ -46,9 +54,8 @@ class HomeViewModel @Inject constructor(
         _filterState.value = _filterState.value.map {
             if (it.id == filter.id) {
                 if (!filter.enabled.value) {
-
                     it.enabled.value = true
-                    getBillionairesByFilter(it)
+                    getBillionairesByIndustry(it.name)
                     it
                 } else {
                     it.enabled.value = false
@@ -63,6 +70,19 @@ class HomeViewModel @Inject constructor(
 
     }
 
+    fun changeFilterSort(filter: String)
+    {
+        deselectFilters()
+        getBillionairesByFilter(filter)
+    }
+
+    private fun deselectFilters() {
+        _filterState.value = _filterState.value.map {
+            it.enabled.value = false
+            it
+        }
+    }
+
      private fun getBillionaires() {
         viewModelScope.launch {
             try {
@@ -75,10 +95,26 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun getBillionairesByFilter(filter: Filter) {
+    private fun getBillionairesByFilter(filter: String) {
         viewModelScope.launch {
             try {
-                val billionaires = billionaireRepository.getBillionairesByFilter(filter.name)
+                val billionaires = if (filter=="Default") {
+                    billionaireRepository.getBillionaires()
+                } else
+                    billionaireRepository.getBillionairesByFilter(filter)
+                _billionaireState.value = billionaires
+            }
+            catch (e: Exception) {
+                Log.e("HomeViewModel", e.message!!)
+            }
+        }
+    }
+
+    // industry
+    private fun getBillionairesByIndustry(industry: String) {
+        viewModelScope.launch {
+            try {
+                val billionaires = billionaireRepository.getBillionairesByIndustry(industry)
                 _billionaireState.value = billionaires
             }
             catch (e: Exception) {

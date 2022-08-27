@@ -116,7 +116,7 @@ private fun rememberSearchState(
     searching: Boolean = false,
     categories: List<SearchCategoryCollection> = SearchRepo.getCategories(),
     suggestions: List<SearchSuggestionGroup> = SearchRepo.getSuggestions(),
-    filters: List<Filter> = BillionaireRepo.getFilters(),
+    filters: List<Filter> = BillionaireRepo.getIndustryFilters(),
     searchResults: List<Billionaire> = emptyList()
 ): SearchState {
     return remember {

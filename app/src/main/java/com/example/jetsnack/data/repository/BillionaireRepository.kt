@@ -7,4 +7,5 @@ import javax.inject.Inject
 interface BillionaireRepository {
     suspend fun getBillionaires(): List<Billionaire>
     suspend fun getBillionairesByFilter(filter: String): List<Billionaire>
+    suspend fun getBillionairesByIndustry(industry: String): List<Billionaire>
 }

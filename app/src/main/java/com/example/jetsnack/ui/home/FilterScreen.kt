@@ -57,17 +57,17 @@ import com.google.accompanist.flowlayout.FlowRow
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun FilterScreen(
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    homeViewModel: HomeViewModel
 ) {
-    var sortState by remember { mutableStateOf(BillionaireRepo.getSortDefault()) }
+    //var sortState by remember { mutableStateOf(BillionaireRepo.getSortDefault()) }
+    var sortState = homeViewModel.sortState.collectAsState()
     var maxCalories by remember { mutableStateOf(0f) }
     val defaultFilter = BillionaireRepo.getSortDefault()
 
     Dialog(onDismissRequest = onDismiss) {
 
-        val priceFilters = remember { BillionaireRepo.getPriceFilters() }
-        val categoryFilters = remember { BillionaireRepo.getCategoryFilters() }
-        val lifeStyleFilters = remember { BillionaireRepo.getLifeStyleFilters() }
+
         JetsnackScaffold(
             topBar = {
                 TopAppBar(
@@ -88,9 +88,9 @@ fun FilterScreen(
                         )
                     },
                     actions = {
-                        var resetEnabled = sortState != defaultFilter
+                        var resetEnabled = sortState.value != defaultFilter
                         IconButton(
-                            onClick = { /* TODO: Open search */ },
+                            onClick = { homeViewModel.changeSortState("Default") },
                             enabled = resetEnabled
                         ) {
                             val alpha = if (resetEnabled) {
@@ -117,29 +117,11 @@ fun FilterScreen(
                     .padding(horizontal = 24.dp, vertical = 16.dp),
             ) {
                 SortFiltersSection(
-                    sortState = sortState,
+                    sortState = sortState.value,
                     onFilterChange = { filter ->
-                        sortState = filter.name
-                    }
-                )
-                FilterChipSection(
-                    title = stringResource(id = R.string.price),
-                    filters = priceFilters
-                )
-                FilterChipSection(
-                    title = stringResource(id = R.string.category),
-                    filters = categoryFilters
-                )
-
-                MaxCalories(
-                    sliderPosition = maxCalories,
-                    onValueChanged = { newValue ->
-                        maxCalories = newValue
-                    }
-                )
-                FilterChipSection(
-                    title = stringResource(id = R.string.lifestyle),
-                    filters = lifeStyleFilters
+                        homeViewModel.changeSortState(filter.name)
+                    },
+                    homeViewModel = homeViewModel
                 )
             }
         }
@@ -147,35 +129,13 @@ fun FilterScreen(
 }
 
 @Composable
-fun FilterChipSection(title: String, filters: List<Filter>) {
-    FilterTitle(text = title)
-    FlowRow(
-        mainAxisAlignment = FlowMainAxisAlignment.Center,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 12.dp, bottom = 16.dp)
-            .padding(horizontal = 4.dp)
-    ) {
-        var isPressed =List(filters.size) {  remember {
-            mutableStateOf(false)
-        } }
-//        filters.forEach { filter ->
-//            FilterChip(
-//                filter = filter,
-//                modifier = Modifier.padding(end = 4.dp, bottom = 8.dp),
-//                isPressed = isPressed,
-//            )
-//        }
-    }
-}
-
-@Composable
-fun SortFiltersSection(sortState: String, onFilterChange: (Filter) -> Unit) {
+fun SortFiltersSection(sortState: String, onFilterChange: (Filter) -> Unit, homeViewModel: HomeViewModel) {
     FilterTitle(text = stringResource(id = R.string.sort))
     Column(Modifier.padding(bottom = 24.dp)) {
         SortFilters(
             sortState = sortState,
-            onChanged = onFilterChange
+            onChanged = onFilterChange,
+            homeViewModel = homeViewModel
         )
     }
 }
@@ -184,7 +144,8 @@ fun SortFiltersSection(sortState: String, onFilterChange: (Filter) -> Unit) {
 fun SortFilters(
     sortFilters: List<Filter> = BillionaireRepo.getSortFilters(),
     sortState: String,
-    onChanged: (Filter) -> Unit
+    onChanged: (Filter) -> Unit,
+    homeViewModel: HomeViewModel
 ) {
 
     sortFilters.forEach { filter ->
@@ -197,33 +158,6 @@ fun SortFilters(
             }
         )
     }
-}
-
-@Composable
-fun MaxCalories(sliderPosition: Float, onValueChanged: (Float) -> Unit) {
-    FlowRow {
-        FilterTitle(text = stringResource(id = R.string.max_calories))
-        Text(
-            text = stringResource(id = R.string.per_serving),
-            style = MaterialTheme.typography.body2,
-            color = JetsnackTheme.colors.brand,
-            modifier = Modifier.padding(top = 5.dp, start = 10.dp)
-        )
-    }
-    Slider(
-        value = sliderPosition,
-        onValueChange = { newValue ->
-            onValueChanged(newValue)
-        },
-        valueRange = 0f..300f,
-        steps = 5,
-        modifier = Modifier
-            .fillMaxWidth(),
-        colors = SliderDefaults.colors(
-            thumbColor = JetsnackTheme.colors.brand,
-            activeTrackColor = JetsnackTheme.colors.brand
-        )
-    )
 }
 
 @Composable
@@ -265,9 +199,4 @@ fun SortOption(
             )
         }
     }
-}
-@Preview("filter screen")
-@Composable
-fun FilterScreenPreview() {
-    FilterScreen(onDismiss = {})
 }

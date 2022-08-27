@@ -34,12 +34,9 @@ enum class CollectionType { Normal, Highlight }
  */
 object BillionaireRepo {
     fun getRelated(@Suppress("UNUSED_PARAMETER") snackId: Long) = ""
-    fun getFilters() = filters
-    fun getPriceFilters() = priceFilters
+    fun getIndustryFilters() = industryFilters
     fun getSortFilters() = sortFilters
-    fun getCategoryFilters() = categoryFilters
     fun getSortDefault() = sortDefault
-    fun getLifeStyleFilters() = lifeStyleFilters
 }
 
 /**

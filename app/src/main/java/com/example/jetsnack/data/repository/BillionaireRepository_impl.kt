@@ -14,4 +14,9 @@ class BillionaireRepository_impl  (
         return billionaireApi.getBillionairesByFilter(filter)
     }
 
+    // industry
+    override suspend fun getBillionairesByIndustry(industry: String): List<Billionaire> {
+        return billionaireApi.getBillionairesByIndustry(industry)
+    }
+
 }
