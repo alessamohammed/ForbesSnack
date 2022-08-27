@@ -29,39 +29,8 @@ class HomeViewModel @Inject constructor(
     val filterState: StateFlow<List<Filter>>
         get() = _filterState
 
-     fun changeFilter(filter: Filter) {
-        _filterState.value = _filterState.value.map {
-            if (it.id == filter.id) {
-                if (!filter.enabled.value) {
-
-                    it.enabled.value = true
-                    getBillionairesByFilter(it)
-                    it
-                } else {
-                    it.enabled.value = false
-                    it
-                }
-            } else {
-                it.enabled.value = false
-                it
-            }
-        }
-
-    }
     init {
 
-        viewModelScope.launch {
-        try {
-            val billionaires = billionaireRepository.getBillionaires()
-            _billionaireState.value = billionaires
-        }
-        catch (e: Exception) {
-            Log.e("HomeViewModel", e.message!!)
-        }
-        }
-    }
-
-    suspend fun getBillionaires() {
         viewModelScope.launch {
             try {
                 val billionaires = billionaireRepository.getBillionaires()
@@ -73,7 +42,40 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun getBillionairesByFilter(filter: Filter) {
+     fun changeFilter(filter: Filter) {
+        _filterState.value = _filterState.value.map {
+            if (it.id == filter.id) {
+                if (!filter.enabled.value) {
+
+                    it.enabled.value = true
+                    getBillionairesByFilter(it)
+                    it
+                } else {
+                    it.enabled.value = false
+                    getBillionaires()
+                    it
+                }
+            } else {
+                it.enabled.value = false
+                it
+            }
+        }
+
+    }
+
+     private fun getBillionaires() {
+        viewModelScope.launch {
+            try {
+                val billionaires = billionaireRepository.getBillionaires()
+                _billionaireState.value = billionaires
+            }
+            catch (e: Exception) {
+                Log.e("HomeViewModel", e.message!!)
+            }
+        }
+    }
+
+    private fun getBillionairesByFilter(filter: Filter) {
         viewModelScope.launch {
             try {
                 val billionaires = billionaireRepository.getBillionairesByFilter(filter.name)
