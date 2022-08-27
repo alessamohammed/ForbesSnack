@@ -9,11 +9,11 @@ data class FinancialAsset(
     @SerializedName("currencyCode")
     val currencyCode: String,
     @SerializedName("currentPrice")
-    val currentPrice: String,
+    val currentPrice: Double,
     @SerializedName("exchange")
     val exchange: String,
     @SerializedName("exchangeRate")
-    val exchangeRate: String,
+    val exchangeRate: Double,
     @SerializedName("exerciseOptionPrice")
     val exerciseOptionPrice: String,
     @SerializedName("interactive")
@@ -21,7 +21,7 @@ data class FinancialAsset(
     @SerializedName("numberOfShares")
     val numberOfShares: String,
     @SerializedName("sharePrice")
-    val sharePrice: String,
+    val sharePrice: Double,
     @SerializedName("ticker")
     val ticker: String
 )

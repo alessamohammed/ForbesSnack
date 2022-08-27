@@ -33,13 +33,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jetsnack.domain.model.Filter
-import com.example.jetsnack.domain.model.SnackCollection
-import com.example.jetsnack.domain.model.SnackRepo
+import com.example.jetsnack.domain.model.BillionaireRepo
 import com.example.jetsnack.ui.components.FilterBar
 import com.example.jetsnack.ui.components.JetsnackSurface
 import com.example.jetsnack.ui.components.SnackCollection
-import com.example.jetsnack.ui.theme.JetsnackTheme
-import com.example.jetsnack.data.repository.BillionaireRepository
 import com.example.jetsnack.domain.model.request.Billionaire
 
 
@@ -51,13 +48,14 @@ fun Feed(
 )
 {
     val billionaireList by viewModel.billionaireState.collectAsState()
-    val filters = remember { SnackRepo.getFilters() }
+    val filters = remember { BillionaireRepo.getFilters() }
 
     Feed(
         billionaireList,
         filters,
         onSnackClick,
-        modifier
+        modifier,
+        viewModel
     )
 }
 
@@ -66,11 +64,12 @@ private fun Feed(
     billionaireList: List<Billionaire>,
     filters: List<Filter>,
     onSnackClick: (Long) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    homeViewModel: HomeViewModel
 ) {
     JetsnackSurface(modifier = modifier.fillMaxSize()) {
         Box {
-            SnackCollectionList(billionaireList, filters, onSnackClick)
+            SnackCollectionList(billionaireList, filters, onSnackClick, homeViewModel)
         }
     }
 }
@@ -81,7 +80,9 @@ private fun SnackCollectionList(
     billionaireList: List<Billionaire>,
     filters: List<Filter>,
     onSnackClick: (Long) -> Unit,
-    modifier: Modifier = Modifier
+    homeViewModel: HomeViewModel,
+    modifier: Modifier = Modifier,
+
 ) {
     var filtersVisible by rememberSaveable { mutableStateOf(false) }
     Box(modifier) {
@@ -92,7 +93,7 @@ private fun SnackCollectionList(
                         WindowInsets.statusBars.add(WindowInsets(top = 10.dp))
                     )
                 )
-                FilterBar(filters, onShowFilters = { filtersVisible = true })
+                FilterBar(filters, onShowFilters = { filtersVisible = true }, homeViewModel = homeViewModel)
 
                     SnackCollection(
                         billionaireList = billionaireList,

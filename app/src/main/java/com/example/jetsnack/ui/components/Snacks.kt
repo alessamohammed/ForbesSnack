@@ -157,6 +157,8 @@ private fun billionaireItem(
     }
     var ageYear: String
 
+    ageYear =  (Date(billionaire.timestamp).year - Date(billionaire.birthDate).year).toString()
+
     var netWorth: String
     if (billionaire.finalWorth >1000) {
        netWorth= String.format("%.2f",billionaire.finalWorth / 1000) + " B"
@@ -164,13 +166,13 @@ private fun billionaireItem(
     else
         netWorth = String.format("%.2f",billionaire.finalWorth) + " M"
 
-    var squareImage = if (billionaire.squareImage.startsWith("http"))
+    var squareImage = if (billionaire?.squareImage?.startsWith("http") == true)
     {
         billionaire.squareImage
     }
     else
     {
-        "https:${billionaire.squareImage}"
+        "https:${billionaire.squareImage?:""}"
     }
     JetsnackCard(
         modifier = modifier
@@ -258,7 +260,6 @@ private fun billionaireItem(
                             color = JetsnackTheme.colors.textSecondary,
                             textAlign = TextAlign.Start
                         )
-                        ageYear =  (Date(billionaire.timestamp).year - Date(billionaire.birthDate).year).toString()
 
                         Text(
                             text = ageYear,

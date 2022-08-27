@@ -11,5 +11,10 @@ class BillionaireRepository @Inject constructor(
         return billionaireApi.getBillionaires()
     }
 
+    // getBillionairesByFilter
+    suspend fun getBillionairesByFilter(filter: String): List<Billionaire> {
+        return billionaireApi.getBillionairesByFilter(filter)
+    }
+
 
 }

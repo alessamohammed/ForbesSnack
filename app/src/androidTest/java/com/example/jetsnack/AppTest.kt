@@ -34,7 +34,7 @@ class AppTest {
     @Before
     fun setUp() {
         composeTestRule.setContent {
-            JetsnackApp()
+//            JetsnackApp()
         }
     }
 

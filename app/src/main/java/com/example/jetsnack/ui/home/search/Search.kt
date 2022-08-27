@@ -58,7 +58,7 @@ import com.example.jetsnack.domain.model.SearchCategoryCollection
 import com.example.jetsnack.domain.model.SearchRepo
 import com.example.jetsnack.domain.model.SearchSuggestionGroup
 import com.example.jetsnack.domain.model.Billionaire
-import com.example.jetsnack.domain.model.SnackRepo
+import com.example.jetsnack.domain.model.BillionaireRepo
 import com.example.jetsnack.ui.components.JetsnackDivider
 import com.example.jetsnack.ui.components.JetsnackSurface
 import com.example.jetsnack.ui.theme.JetsnackTheme
@@ -116,7 +116,7 @@ private fun rememberSearchState(
     searching: Boolean = false,
     categories: List<SearchCategoryCollection> = SearchRepo.getCategories(),
     suggestions: List<SearchSuggestionGroup> = SearchRepo.getSuggestions(),
-    filters: List<Filter> = SnackRepo.getFilters(),
+    filters: List<Filter> = BillionaireRepo.getFilters(),
     searchResults: List<Billionaire> = emptyList()
 ): SearchState {
     return remember {

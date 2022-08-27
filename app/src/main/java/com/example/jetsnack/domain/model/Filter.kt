@@ -23,21 +23,22 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 
 @Stable
 class Filter(
     val name: String,
     enabled: Boolean = false,
-    val icon: ImageVector? = null
+    val icon: ImageVector? = null,
+    var id: Int ? = 0
 ) {
     val enabled = mutableStateOf(enabled)
 }
 val filters = listOf(
-    Filter(name = "Organic"),
-    Filter(name = "Gluten-free"),
-    Filter(name = "Dairy-free"),
-    Filter(name = "Sweet"),
-    Filter(name = "Savory")
+    Filter(name = "Youngest", id=1),
+    Filter(name = "Oldest", id=2),
+    Filter(name = "Women", id=3),
+    Filter(name = "Men", id=4)
 )
 val priceFilters = listOf(
     Filter(name = "$"),

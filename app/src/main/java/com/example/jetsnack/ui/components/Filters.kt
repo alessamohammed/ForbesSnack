@@ -16,7 +16,6 @@
 
 package com.example.jetsnack.ui.components
 
-import android.content.res.Configuration
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -37,26 +36,28 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.FilterList
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jetsnack.R
 import com.example.jetsnack.domain.model.Filter
+import com.example.jetsnack.ui.home.HomeViewModel
 import com.example.jetsnack.ui.theme.JetsnackTheme
 
 @Composable
 fun FilterBar(
     filters: List<Filter>,
-    onShowFilters: () -> Unit
+    onShowFilters: () -> Unit,
+    homeViewModel: HomeViewModel
 ) {
-
+    var isPressed =List(filters.size) {  remember {
+        mutableStateOf(false)
+    } }
+    val Filters by homeViewModel.filterState.collectAsState()
     LazyRow(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -76,9 +77,12 @@ fun FilterBar(
                 )
             }
         }
-        items(filters) { filter ->
-            FilterChip(filter = filter, shape = MaterialTheme.shapes.small)
+        items(Filters) { filter ->
+            FilterChip(filter = filter, shape = MaterialTheme.shapes.small, isPressed = isPressed
+            , id= Filters.indexOf(filter), homeViewModel = homeViewModel)
         }
+
+
     }
 }
 
@@ -86,7 +90,10 @@ fun FilterBar(
 fun FilterChip(
     filter: Filter,
     modifier: Modifier = Modifier,
-    shape: Shape = MaterialTheme.shapes.small
+    shape: Shape = MaterialTheme.shapes.small,
+    isPressed: List<MutableState<Boolean>>,
+    id: Int =0,
+    homeViewModel: HomeViewModel
 ) {
     val (selected, setSelected) = filter.enabled
     val backgroundColor by animateColorAsState(
@@ -100,7 +107,6 @@ fun FilterChip(
     val textColor by animateColorAsState(
         if (selected) Color.Black else JetsnackTheme.colors.textSecondary
     )
-
     JetsnackSurface(
         modifier = modifier.height(28.dp),
         color = backgroundColor,
@@ -124,8 +130,8 @@ fun FilterChip(
         Box(
             modifier = Modifier
                 .toggleable(
-                    value = selected,
-                    onValueChange = setSelected,
+                    value = isPressed[id].value,
+                    onValueChange = { homeViewModel.changeFilter(filter) } ,
                     interactionSource = interactionSource,
                     indication = null
                 )
@@ -145,22 +151,22 @@ fun FilterChip(
     }
 }
 
-@Preview("default")
-@Preview("dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Preview("large font", fontScale = 2f)
-@Composable
-private fun FilterDisabledPreview() {
-    JetsnackTheme {
-        FilterChip(Filter(name = "Demo", enabled = false), Modifier.padding(4.dp))
-    }
-}
-
-@Preview("default")
-@Preview("dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Preview("large font", fontScale = 2f)
-@Composable
-private fun FilterEnabledPreview() {
-    JetsnackTheme {
-        FilterChip(Filter(name = "Demo", enabled = true))
-    }
-}
+//@Preview("default")
+//@Preview("dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
+//@Preview("large font", fontScale = 2f)
+//@Composable
+//private fun FilterDisabledPreview() {
+//    JetsnackTheme {
+//        FilterChip(Filter(name = "Demo", enabled = false), Modifier.padding(4.dp))
+//    }
+//}
+//
+//@Preview("default")
+//@Preview("dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
+//@Preview("large font", fontScale = 2f)
+//@Composable
+//private fun FilterEnabledPreview() {
+//    JetsnackTheme {
+//        FilterChip(Filter(name = "Demo", enabled = true))
+//    }
+//}

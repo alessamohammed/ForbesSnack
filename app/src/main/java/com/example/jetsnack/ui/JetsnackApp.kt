@@ -92,6 +92,6 @@ private fun NavGraphBuilder.jetsnackNavGraph(
     ) { backStackEntry ->
         val arguments = requireNotNull(backStackEntry.arguments)
         val snackId = arguments.getLong(MainDestinations.SNACK_ID_KEY)
-        SnackDetail(snackId, upPress)
+        SnackDetail(snackId,homeViewModel, upPress)
     }
 }

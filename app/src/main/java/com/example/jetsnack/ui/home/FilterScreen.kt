@@ -37,14 +37,8 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Done
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -53,7 +47,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.jetsnack.R
 import com.example.jetsnack.domain.model.Filter
-import com.example.jetsnack.domain.model.SnackRepo
+import com.example.jetsnack.domain.model.BillionaireRepo
 import com.example.jetsnack.ui.components.FilterChip
 import com.example.jetsnack.ui.components.JetsnackScaffold
 import com.example.jetsnack.ui.theme.JetsnackTheme
@@ -65,15 +59,15 @@ import com.google.accompanist.flowlayout.FlowRow
 fun FilterScreen(
     onDismiss: () -> Unit
 ) {
-    var sortState by remember { mutableStateOf(SnackRepo.getSortDefault()) }
+    var sortState by remember { mutableStateOf(BillionaireRepo.getSortDefault()) }
     var maxCalories by remember { mutableStateOf(0f) }
-    val defaultFilter = SnackRepo.getSortDefault()
+    val defaultFilter = BillionaireRepo.getSortDefault()
 
     Dialog(onDismissRequest = onDismiss) {
 
-        val priceFilters = remember { SnackRepo.getPriceFilters() }
-        val categoryFilters = remember { SnackRepo.getCategoryFilters() }
-        val lifeStyleFilters = remember { SnackRepo.getLifeStyleFilters() }
+        val priceFilters = remember { BillionaireRepo.getPriceFilters() }
+        val categoryFilters = remember { BillionaireRepo.getCategoryFilters() }
+        val lifeStyleFilters = remember { BillionaireRepo.getLifeStyleFilters() }
         JetsnackScaffold(
             topBar = {
                 TopAppBar(
@@ -162,12 +156,16 @@ fun FilterChipSection(title: String, filters: List<Filter>) {
             .padding(top = 12.dp, bottom = 16.dp)
             .padding(horizontal = 4.dp)
     ) {
-        filters.forEach { filter ->
-            FilterChip(
-                filter = filter,
-                modifier = Modifier.padding(end = 4.dp, bottom = 8.dp)
-            )
-        }
+        var isPressed =List(filters.size) {  remember {
+            mutableStateOf(false)
+        } }
+//        filters.forEach { filter ->
+//            FilterChip(
+//                filter = filter,
+//                modifier = Modifier.padding(end = 4.dp, bottom = 8.dp),
+//                isPressed = isPressed,
+//            )
+//        }
     }
 }
 
@@ -184,7 +182,7 @@ fun SortFiltersSection(sortState: String, onFilterChange: (Filter) -> Unit) {
 
 @Composable
 fun SortFilters(
-    sortFilters: List<Filter> = SnackRepo.getSortFilters(),
+    sortFilters: List<Filter> = BillionaireRepo.getSortFilters(),
     sortState: String,
     onChanged: (Filter) -> Unit
 ) {

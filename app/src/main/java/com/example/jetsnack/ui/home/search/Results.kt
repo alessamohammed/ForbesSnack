@@ -64,7 +64,7 @@ fun SearchResults(
     onSnackClick: (Long) -> Unit
 ) {
     Column {
-        FilterBar(filters, onShowFilters = {})
+//        FilterBar(filters, onShowFilters = {})
         Text(
             text = stringResource(R.string.search_count, searchResults.size),
             style = MaterialTheme.typography.h6,
