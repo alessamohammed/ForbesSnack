@@ -3,7 +3,7 @@ package com.example.jetsnack.di
 import com.example.jetsnack.data.Api.ApiConstants
 import com.example.jetsnack.data.Api.BillionaireApi
 import com.example.jetsnack.data.repository.BillionaireRepository
-import com.example.jetsnack.data.repository.BillionaireRepository_impl
+import com.example.jetsnack.data.repository.BillionaireRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,7 +18,7 @@ object BillionaireApiModule {
 
     @Provides
     @Singleton
-    fun provideApi(builder:Retrofit.Builder): BillionaireApi {
+    fun provideApi(builder: Retrofit.Builder): BillionaireApi {
         return builder
             .build()
             .create(BillionaireApi::class.java)
@@ -36,6 +36,6 @@ object BillionaireApiModule {
     @Provides
     @Singleton
     fun provideBillionaireRepository(billionaireApi: BillionaireApi): BillionaireRepository {
-        return BillionaireRepository_impl(billionaireApi)
+        return BillionaireRepositoryImpl(billionaireApi)
     }
 }

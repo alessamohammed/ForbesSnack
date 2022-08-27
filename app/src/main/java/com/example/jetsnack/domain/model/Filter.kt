@@ -16,48 +16,44 @@
 
 package com.example.jetsnack.domain.model
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Android
-import androidx.compose.material.icons.filled.SortByAlpha
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
 
 @Stable
 class Filter(
     val name: String,
     enabled: Boolean = false,
     val icon: ImageVector? = null,
-    var id: Int ? = 0
+    var id: Int? = 0
 ) {
     val enabled = mutableStateOf(enabled)
 }
+
 val industryFilters = listOf(
-    Filter(name = "Technology", id=1),
-    Filter(name = "Automotive", id=2),
-    Filter(name = "Fashion", id=3),
-    Filter(name = "Diversified", id=4),
-    Filter(name = "Finance", id=5),
-    Filter(name = "Telecom", id=6),
-    Filter(name = "Media & Entertainment", id=7),
-    Filter(name = "Food & Beverage", id=8),
-    Filter(name = "Automotive", id=9),
-    Filter(name = "Logistics", id=10),
-    Filter(name = "Retail", id=11),
-    Filter(name = "Investments", id=12),
-    Filter(name = "Retail", id=13),
-    Filter(name = "Healthcare", id=14),
-    Filter(name = "Entertainment", id=15)
+    Filter(name = "Technology", id = 1),
+    Filter(name = "Automotive", id = 2),
+    Filter(name = "Fashion", id = 3),
+    Filter(name = "Diversified", id = 4),
+    Filter(name = "Finance", id = 5),
+    Filter(name = "Telecom", id = 6),
+    Filter(name = "Media & Entertainment", id = 7),
+    Filter(name = "Food & Beverage", id = 8),
+    Filter(name = "Automotive", id = 9),
+    Filter(name = "Logistics", id = 10),
+    Filter(name = "Retail", id = 11),
+    Filter(name = "Investments", id = 12),
+    Filter(name = "Retail", id = 13),
+    Filter(name = "Healthcare", id = 14),
+    Filter(name = "Entertainment", id = 15)
 )
 
 val sortFilters = listOf(
-    Filter(name = "Default", id=16),
-    Filter(name = "Youngest", id=17),
-    Filter(name = "Oldest", id=18),
-    Filter(name = "Women", id=19),
-    Filter(name = "Men", id=20)
+    Filter(name = "Default", id = 16),
+    Filter(name = "Youngest", id = 17),
+    Filter(name = "Oldest", id = 18),
+    Filter(name = "Women", id = 19),
+    Filter(name = "Men", id = 20)
 )
 
 var sortDefault = sortFilters.get(0).name

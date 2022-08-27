@@ -17,23 +17,11 @@
 package com.example.jetsnack.ui.home
 
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.LocalContentAlpha
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Slider
-import androidx.compose.material.SliderDefaults
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Done
@@ -42,17 +30,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.jetsnack.R
-import com.example.jetsnack.domain.model.Filter
 import com.example.jetsnack.domain.model.BillionaireRepo
-import com.example.jetsnack.ui.components.FilterChip
+import com.example.jetsnack.domain.model.Filter
 import com.example.jetsnack.ui.components.JetsnackScaffold
 import com.example.jetsnack.ui.theme.JetsnackTheme
-import com.google.accompanist.flowlayout.FlowMainAxisAlignment
-import com.google.accompanist.flowlayout.FlowRow
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -61,8 +45,7 @@ fun FilterScreen(
     homeViewModel: HomeViewModel
 ) {
     //var sortState by remember { mutableStateOf(BillionaireRepo.getSortDefault()) }
-    var sortState = homeViewModel.sortState.collectAsState()
-    var maxCalories by remember { mutableStateOf(0f) }
+    val sortState = homeViewModel.sortState.collectAsState()
     val defaultFilter = BillionaireRepo.getSortDefault()
 
     Dialog(onDismissRequest = onDismiss) {
@@ -88,7 +71,7 @@ fun FilterScreen(
                         )
                     },
                     actions = {
-                        var resetEnabled = sortState.value != defaultFilter
+                        val resetEnabled = sortState.value != defaultFilter
                         IconButton(
                             onClick = { homeViewModel.changeSortState("Default") },
                             enabled = resetEnabled
@@ -120,8 +103,7 @@ fun FilterScreen(
                     sortState = sortState.value,
                     onFilterChange = { filter ->
                         homeViewModel.changeSortState(filter.name)
-                    },
-                    homeViewModel = homeViewModel
+                    }
                 )
             }
         }
@@ -129,13 +111,15 @@ fun FilterScreen(
 }
 
 @Composable
-fun SortFiltersSection(sortState: String, onFilterChange: (Filter) -> Unit, homeViewModel: HomeViewModel) {
+fun SortFiltersSection(
+    sortState: String,
+    onFilterChange: (Filter) -> Unit
+) {
     FilterTitle(text = stringResource(id = R.string.sort))
     Column(Modifier.padding(bottom = 24.dp)) {
         SortFilters(
             sortState = sortState,
-            onChanged = onFilterChange,
-            homeViewModel = homeViewModel
+            onChanged = onFilterChange
         )
     }
 }
@@ -144,8 +128,7 @@ fun SortFiltersSection(sortState: String, onFilterChange: (Filter) -> Unit, home
 fun SortFilters(
     sortFilters: List<Filter> = BillionaireRepo.getSortFilters(),
     sortState: String,
-    onChanged: (Filter) -> Unit,
-    homeViewModel: HomeViewModel
+    onChanged: (Filter) -> Unit
 ) {
 
     sortFilters.forEach { filter ->
@@ -169,6 +152,7 @@ fun FilterTitle(text: String) {
         modifier = Modifier.padding(bottom = 8.dp)
     )
 }
+
 @Composable
 fun SortOption(
     text: String,

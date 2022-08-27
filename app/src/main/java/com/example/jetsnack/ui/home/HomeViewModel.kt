@@ -16,11 +16,11 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val billionaireRepository: BillionaireRepository
-):ViewModel() {
+) : ViewModel() {
 
     private val _billionaireState = MutableStateFlow(emptyList<Billionaire>())
     val billionaireState: StateFlow<List<Billionaire>>
-    get() = _billionaireState
+        get() = _billionaireState
 
     val filters = BillionaireRepo.getIndustryFilters()
     private val _filterState = MutableStateFlow(filters)
@@ -37,20 +37,20 @@ class HomeViewModel @Inject constructor(
         _sortState.value = sort
         changeFilterSort(sort)
     }
+
     init {
 
         viewModelScope.launch {
             try {
                 val billionaires = billionaireRepository.getBillionaires()
                 _billionaireState.value = billionaires
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 Log.e("HomeViewModel", e.message!!)
             }
         }
     }
 
-     fun changeFilter(filter: Filter) {
+    fun changeFilter(filter: Filter) {
         _filterState.value = _filterState.value.map {
             if (it.id == filter.id) {
                 if (!filter.enabled.value) {
@@ -70,8 +70,7 @@ class HomeViewModel @Inject constructor(
 
     }
 
-    fun changeFilterSort(filter: String)
-    {
+    fun changeFilterSort(filter: String) {
         deselectFilters()
         getBillionairesByFilter(filter)
     }
@@ -83,13 +82,12 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-     private fun getBillionaires() {
+    private fun getBillionaires() {
         viewModelScope.launch {
             try {
                 val billionaires = billionaireRepository.getBillionaires()
                 _billionaireState.value = billionaires
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 Log.e("HomeViewModel", e.message!!)
             }
         }
@@ -98,13 +96,12 @@ class HomeViewModel @Inject constructor(
     private fun getBillionairesByFilter(filter: String) {
         viewModelScope.launch {
             try {
-                val billionaires = if (filter=="Default") {
+                val billionaires = if (filter == "Default") {
                     billionaireRepository.getBillionaires()
                 } else
                     billionaireRepository.getBillionairesByFilter(filter)
                 _billionaireState.value = billionaires
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 Log.e("HomeViewModel", e.message!!)
             }
         }
@@ -116,8 +113,7 @@ class HomeViewModel @Inject constructor(
             try {
                 val billionaires = billionaireRepository.getBillionairesByIndustry(industry)
                 _billionaireState.value = billionaires
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 Log.e("HomeViewModel", e.message!!)
             }
         }

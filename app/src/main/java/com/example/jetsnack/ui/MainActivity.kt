@@ -21,7 +21,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.core.view.WindowCompat
-import androidx.lifecycle.ViewModelProvider
 import com.example.jetsnack.ui.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,9 +36,10 @@ class MainActivity : ComponentActivity() {
         // This app draws behind the system bars, so we want to handle fitting system windows
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-           JetsnackApp(homeViewModel)
+            JetsnackApp(homeViewModel)
         }
     }
+
     override fun onStart() {
         super.onStart()
     }

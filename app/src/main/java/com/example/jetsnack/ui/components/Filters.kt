@@ -20,12 +20,7 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.toggleable
@@ -55,9 +50,11 @@ fun FilterBar(
 ) {
 
     val filters by homeViewModel.filterState.collectAsState()
-    var isPressed =List(filters.size) {  remember {
-        mutableStateOf(false)
-    } }
+    val isPressed = List(filters.size) {
+        remember {
+            mutableStateOf(false)
+        }
+    }
     LazyRow(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -78,8 +75,13 @@ fun FilterBar(
             }
         }
         items(filters) { filter ->
-            FilterChip(filter = filter, shape = MaterialTheme.shapes.small, isPressed = isPressed
-            , id= filters.indexOf(filter), homeViewModel = homeViewModel)
+            FilterChip(
+                filter = filter,
+                shape = MaterialTheme.shapes.small,
+                isPressed = isPressed,
+                id = filters.indexOf(filter),
+                homeViewModel = homeViewModel
+            )
         }
 
 
@@ -92,20 +94,19 @@ fun FilterChip(
     modifier: Modifier = Modifier,
     shape: Shape = MaterialTheme.shapes.small,
     isPressed: List<MutableState<Boolean>>,
-    id: Int =0,
+    id: Int = 0,
     homeViewModel: HomeViewModel
 ) {
-    val (selected, setSelected) = filter.enabled
     val backgroundColor by animateColorAsState(
-        if (selected) JetsnackTheme.colors.brandSecondary else JetsnackTheme.colors.uiBackground
+        if (isPressed[id].value) JetsnackTheme.colors.brandSecondary else JetsnackTheme.colors.uiBackground
     )
     val border = Modifier.fadeInDiagonalGradientBorder(
-        showBorder = !selected,
+        showBorder = !isPressed[id].value,
         colors = JetsnackTheme.colors.interactiveSecondary,
         shape = shape
     )
     val textColor by animateColorAsState(
-        if (selected) Color.Black else JetsnackTheme.colors.textSecondary
+        if (isPressed[id].value) Color.Black else JetsnackTheme.colors.textSecondary
     )
     JetsnackSurface(
         modifier = modifier.height(28.dp),
@@ -131,7 +132,7 @@ fun FilterChip(
             modifier = Modifier
                 .toggleable(
                     value = isPressed[id].value,
-                    onValueChange = { homeViewModel.changeFilter(filter) } ,
+                    onValueChange = { homeViewModel.changeFilter(filter) },
                     interactionSource = interactionSource,
                     indication = null
                 )

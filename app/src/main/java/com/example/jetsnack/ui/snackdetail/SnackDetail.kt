@@ -36,15 +36,9 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.Constraints
-import androidx.compose.ui.unit.IntOffset
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.lerp
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.*
 import androidx.compose.ui.util.lerp
 import com.example.jetsnack.R
-import com.example.jetsnack.domain.model.SnackCollection
-import com.example.jetsnack.domain.model.BillionaireRepo
 import com.example.jetsnack.domain.model.request.FinancialAsset
 import com.example.jetsnack.ui.components.JetsnackButton
 import com.example.jetsnack.ui.components.JetsnackDivider
@@ -77,16 +71,12 @@ fun SnackDetail(
 ) {
     val billionaireList by viewModel.billionaireState.collectAsState()
     val billionaire = billionaireList.first { it.rank.toLong() == snackId }
-    val related = remember(snackId) { BillionaireRepo.getRelated(snackId) }
-    var squareImage = if (billionaire.squareImage.startsWith("http"))
-    {
+    val squareImage = if (billionaire.squareImage?.startsWith("http") == true) {
         billionaire.squareImage
-    }
-    else
-    {
+    } else {
         "https:${billionaire.squareImage}"
     }
-    var link = "https://www.forbes.com/profile/${billionaire.uri}"
+    val link = "https://www.forbes.com/profile/${billionaire.uri}"
 
     Box(Modifier.fillMaxSize()) {
         val scroll = rememberScrollState(0)
@@ -137,23 +127,22 @@ private fun Body(
 ) {
     var bio = ""
     billionaire.bios.forEach {
-        bio+=("$it\n")
+        bio += ("$it\n")
     }
     var about = ""
     billionaire.abouts.forEach {
-        about+=("$it\n")
+        about += ("$it\n")
     }
     var industries = ""
     billionaire.industries.forEach {
-        industries+=("$it, ")
+        industries += ("$it, ")
     }
-    var ageYear = ""
-    ageYear =  (Date(billionaire.timestamp).year - Date(billionaire.birthDate).year).toString()
+    val ageYear = (Date(billionaire.timestamp).year - Date(billionaire.birthDate).year).toString()
 
     var country = ""
-    country +=if(billionaire.countryOfCitizenship !="") billionaire.countryOfCitizenship else
-    country += if (billionaire.state !="") ", ${billionaire.state}" else ""
-    country += if (billionaire.city !="") ", ${billionaire.city}" else ""
+    country += if (billionaire.countryOfCitizenship != "") billionaire.countryOfCitizenship else
+        country += if (billionaire.state != "") ", ${billionaire.state}" else ""
+    country += if (billionaire.city != "") ", ${billionaire.city}" else ""
     Column {
         Spacer(
             modifier = Modifier
@@ -270,15 +259,7 @@ private fun Body(
                     Spacer(Modifier.height(16.dp))
                     JetsnackDivider()
 
-//                    related.forEach { snackCollection ->
-//                        key(snackCollection.id) {
-//                            SnackCollection(
-//                                snackCollection = snackCollection,
-//                                onSnackClick = { }
-//                            )
-//                        }
-//                    }
-
+                    if(billionaire.financialAssets.isNotEmpty())
                     TableScreen(billionaire.financialAssets)
                     Spacer(
                         modifier = Modifier
@@ -293,15 +274,17 @@ private fun Body(
 }
 
 @Composable
-private fun Title(billionaire: com.example.jetsnack.domain.model.request.Billionaire, scrollProvider: () -> Int) {
+private fun Title(
+    billionaire: com.example.jetsnack.domain.model.request.Billionaire,
+    scrollProvider: () -> Int
+) {
     val maxOffset = with(LocalDensity.current) { MaxTitleOffset.toPx() }
     val minOffset = with(LocalDensity.current) { MinTitleOffset.toPx() }
-    var netWorth: String = ""
-    if (billionaire.finalWorth >1000) {
-        netWorth= String.format("%.2f",billionaire.finalWorth / 1000) + " B"
-    }
-    else
-        netWorth = String.format("%.2f",billionaire.finalWorth) + " M"
+    val netWorth: String
+    if (billionaire.finalWorth > 1000) {
+        netWorth = String.format("%.2f", billionaire.finalWorth / 1000) + " B"
+    } else
+        netWorth = String.format("%.2f", billionaire.finalWorth) + " M"
     Column(
         verticalArrangement = Arrangement.Bottom,
         modifier = Modifier
@@ -435,56 +418,55 @@ private fun CartBottomBar(modifier: Modifier = Modifier, link: String) {
 
 
 @Composable
-private fun TableScreen(financialAsset: List<FinancialAsset>) {
+private fun TableScreen(financialAsset: List<FinancialAsset>?) {
     // Each cell of a column must have the same weight.
     val column1Weight = .5f // 30%
     val column2Weight = .5f // 70%
 
 
-            // Here is the header
-            Row(Modifier
-                .background(Color.Gray),
-                horizontalArrangement = Arrangement.Center
+    // Here is the header
+    Row(
+        Modifier
+            .background(JetsnackTheme.colors.gradient6_1[0]),
+        horizontalArrangement = Arrangement.Center
 
-            ) {
-                TableCell(text = stringResource(R.string.asset_name),
-                    weight = column1Weight)
-                TableCell(text = stringResource(R.string.shares_worth_usd),
-                    weight = column2Weight)
-            }
+    ) {
+        TableCell(
+            text = stringResource(R.string.asset_name),
+            weight = column1Weight
+        )
+        TableCell(
+            text = stringResource(R.string.shares_worth_usd),
+            weight = column2Weight
+        )
+    }
 
-            // Here are all the lines of your table.
-            financialAsset.forEach {
-                var price = (it.numberOfShares.toDouble() * it.sharePrice * it.exchangeRate)
-                var showPrice =""
-                if (price >= 1000000000)
-                {
-                    price = price / 1000000000
-                    showPrice = String.format("%.2f",price) + " B"
-                }
-                else if (price >= 1000000)
-                {
-                    price = price / 1000000
-                    showPrice = String.format("%.2f",price) + " M"
-                }
-                else if (price >= 1000)
-                {
-                    price = price / 1000
-                    showPrice = String.format("%.2f",price) + " K"
-                }
-                else
-                {
-                    showPrice = String.format("%.2f",price)
-                }
-                Row(Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center
-                    ) {
-                    Row {
-                        TableCell(text = it.companyName, weight = column1Weight)
-                        TableCell(text = showPrice, weight = column2Weight)
-                    }
-                }
+    // Here are all the lines of your table.
+    financialAsset?.forEach {
+        var price = (it.numberOfShares.toDouble() * it.sharePrice * it.exchangeRate)
+        val showPrice: String
+        if (price >= 1000000000) {
+            price /= 1000000000
+            showPrice = String.format("%.2f", price) + " B"
+        } else if (price >= 1000000) {
+            price /= 1000000
+            showPrice = String.format("%.2f", price) + " M"
+        } else if (price >= 1000) {
+            price /= 1000
+            showPrice = String.format("%.2f", price) + " K"
+        } else {
+            showPrice = String.format("%.2f", price)
         }
+        Row(
+            Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Row {
+                TableCell(text = it.companyName, weight = column1Weight)
+                TableCell(text = showPrice, weight = column2Weight)
+            }
+        }
+    }
 
 }
 

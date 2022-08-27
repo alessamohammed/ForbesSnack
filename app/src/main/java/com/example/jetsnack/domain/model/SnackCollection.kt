@@ -16,24 +16,10 @@
 
 package com.example.jetsnack.domain.model
 
-import androidx.compose.runtime.Immutable
-import com.example.jetsnack.domain.model.request.Billionaire
-
-@Immutable
-data class SnackCollection(
-    val id: Long,
-    val name: String,
-    val billionaires: List<Billionaire>,
-    val type: CollectionType = CollectionType.Normal
-)
-
-enum class CollectionType { Normal, Highlight }
-
 /**
- * A fake repo
+ * static data repo
  */
 object BillionaireRepo {
-    fun getRelated(@Suppress("UNUSED_PARAMETER") snackId: Long) = ""
     fun getIndustryFilters() = industryFilters
     fun getSortFilters() = sortFilters
     fun getSortDefault() = sortDefault

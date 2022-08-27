@@ -17,14 +17,7 @@
 package com.example.jetsnack.ui.home
 
 import android.content.res.Configuration
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkVertically
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -32,12 +25,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.jetsnack.domain.model.Filter
-import com.example.jetsnack.domain.model.BillionaireRepo
+import com.example.jetsnack.domain.model.request.Billionaire
 import com.example.jetsnack.ui.components.FilterBar
 import com.example.jetsnack.ui.components.JetsnackSurface
 import com.example.jetsnack.ui.components.SnackCollection
-import com.example.jetsnack.domain.model.request.Billionaire
 
 
 @Composable
@@ -45,8 +36,7 @@ fun Feed(
     onSnackClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel
-)
-{
+) {
     val billionaireList by viewModel.billionaireState.collectAsState()
 
     Feed(
@@ -79,24 +69,24 @@ private fun SnackCollectionList(
     homeViewModel: HomeViewModel,
     modifier: Modifier = Modifier,
 
-) {
+    ) {
     var filtersVisible by rememberSaveable { mutableStateOf(false) }
     Box(modifier) {
 
-        Column (modifier = Modifier.align(Alignment.TopStart)){
-                Spacer(
-                    Modifier.windowInsetsTopHeight(
-                        WindowInsets.statusBars.add(WindowInsets(top = 10.dp))
-                    )
+        Column(modifier = Modifier.align(Alignment.TopStart)) {
+            Spacer(
+                Modifier.windowInsetsTopHeight(
+                    WindowInsets.statusBars.add(WindowInsets(top = 10.dp))
                 )
-                FilterBar(onShowFilters = { filtersVisible = true }, homeViewModel = homeViewModel)
+            )
+            FilterBar(onShowFilters = { filtersVisible = true }, homeViewModel = homeViewModel)
 
-                    SnackCollection(
-                        billionaireList = billionaireList,
-                        onSnackClick = onSnackClick,
-                        index = 0
-                    )
-                }
+            SnackCollection(
+                billionaireList = billionaireList,
+                onSnackClick = onSnackClick,
+                index = 0
+            )
+        }
 
 
     }

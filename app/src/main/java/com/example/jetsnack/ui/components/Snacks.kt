@@ -17,25 +17,14 @@
 package com.example.jetsnack.ui.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
-import android.icu.util.Calendar
-import android.os.Build
-import android.text.format.DateFormat
-import android.text.format.DateUtils
-import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowBack
-import androidx.compose.material.icons.outlined.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -53,13 +42,8 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.jetsnack.R
-import com.example.jetsnack.domain.model.SnackCollection
 import com.example.jetsnack.ui.theme.JetsnackTheme
-import com.example.jetsnack.ui.utils.mirroringIcon
-import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.system.measureTimeMillis
 
 private val HighlightCardWidth = 170.dp
 private val HighlightCardPadding = 16.dp
@@ -69,25 +53,24 @@ private val HighlightCardPadding = 16.dp
 fun SnackCollection(
     billionaireList: List<com.example.jetsnack.domain.model.request.Billionaire>,
     onSnackClick: (Long) -> Unit,
-    modifier: Modifier = Modifier,
     index: Int = 0
 ) {
-        Row(
-            horizontalArrangement = Arrangement.Center,
+    Row(
+        horizontalArrangement = Arrangement.Center,
+        modifier = Modifier
+            .heightIn(min = 56.dp)
+            .padding(start = 24.dp)
+    ) {
+        Text(
+            text = "Billionaires",
+            style = MaterialTheme.typography.h6,
+            color = JetsnackTheme.colors.brand,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier
-                .heightIn(min = 56.dp)
-                .padding(start = 24.dp)
-        ) {
-            Text(
-                text = "Billionaires",
-                style = MaterialTheme.typography.h6,
-                color = JetsnackTheme.colors.brand,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier
-                    .weight(1f)
-                    .wrapContentWidth(Alignment.Start)
-            )
+                .weight(1f)
+                .wrapContentWidth(Alignment.Start)
+        )
 //            IconButton(
 //                onClick = { /* todo */ }
 //            ) {
@@ -100,10 +83,10 @@ fun SnackCollection(
 //                    contentDescription = null
 //                )
 //            }
-        }
-            HighlightedSnacks(index, billionaireList, onSnackClick)
-
     }
+    HighlightedSnacks(index, billionaireList, onSnackClick)
+
+}
 
 
 @Composable
@@ -128,7 +111,7 @@ private fun HighlightedSnacks(
         contentPadding = PaddingValues(start = 24.dp, end = 24.dp)
     ) {
         itemsIndexed(billionaires) { index, billionaire ->
-            billionaireItem(
+            BillionaireItem(
                 billionaire,
                 onSnackClick,
                 index,
@@ -141,7 +124,7 @@ private fun HighlightedSnacks(
 }
 
 @Composable
-private fun billionaireItem(
+private fun BillionaireItem(
     billionaire: com.example.jetsnack.domain.model.request.Billionaire,
     onSnackClick: (Long) -> Unit,
     index: Int,
@@ -153,24 +136,20 @@ private fun billionaireItem(
     val left = index * with(LocalDensity.current) {
         (HighlightCardWidth + HighlightCardPadding).toPx()
     }
-    var ageYear: String
+    val ageYear: String
 
-    ageYear =  (Date(billionaire.timestamp).year - Date(billionaire.birthDate).year).toString()
+    ageYear = (Date(billionaire.timestamp).year - Date(billionaire.birthDate).year).toString()
 
-    var netWorth: String
-    if (billionaire.finalWorth >1000) {
-       netWorth= String.format("%.2f",billionaire.finalWorth / 1000) + " B"
-    }
-    else
-        netWorth = String.format("%.2f",billionaire.finalWorth) + " M"
+    val netWorth: String
+    if (billionaire.finalWorth > 1000) {
+        netWorth = String.format("%.2f", billionaire.finalWorth / 1000) + " B"
+    } else
+        netWorth = String.format("%.2f", billionaire.finalWorth) + " M"
 
-    var squareImage = if (billionaire?.squareImage?.startsWith("http") == true)
-    {
+    val squareImage = if (billionaire.squareImage?.startsWith("http") == true) {
         billionaire.squareImage
-    }
-    else
-    {
-        "https:${billionaire.squareImage?:""}"
+    } else {
+        "https:${billionaire.squareImage}"
     }
     JetsnackCard(
         modifier = modifier
@@ -197,13 +176,13 @@ private fun billionaireItem(
                         .fillMaxWidth()
                         .offsetGradientBackground(gradient, gradientWidth, gradientOffset)
                 )
-                    SnackImage(
-                        imageUrl = squareImage,
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(120.dp)
-                            .align(Alignment.BottomCenter)
-                    )
+                SnackImage(
+                    imageUrl = squareImage,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(120.dp)
+                        .align(Alignment.BottomCenter)
+                )
 
             }
             Spacer(modifier = Modifier.height(8.dp))
@@ -215,38 +194,40 @@ private fun billionaireItem(
                 color = JetsnackTheme.colors.textSecondary,
                 modifier = Modifier.padding(start = 8.dp, bottom = 8.dp)
             )
-            Row(modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Start)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Start
+            )
             {
-                        Column (
-                            modifier = Modifier
-                                .padding(start = 8.dp)
-                                .fillMaxWidth(0.5f)
-                            ,
-                                ) {
-                            Row {
-                                Text(
-                                    text = stringResource(R.string.billionaires_rank) + ": ",
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis,
-                                    style = MaterialTheme.typography.body1,
-                                    color = JetsnackTheme.colors.textSecondary,
-                                    textAlign = TextAlign.Start
-                                )
+                Column(
+                    modifier = Modifier
+                        .padding(start = 8.dp)
+                        .fillMaxWidth(0.5f),
+                ) {
+                    Row {
+                        Text(
+                            text = stringResource(R.string.billionaires_rank) + ": ",
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            style = MaterialTheme.typography.body1,
+                            color = JetsnackTheme.colors.textSecondary,
+                            textAlign = TextAlign.Start
+                        )
 
-                                Text(
-                                    text = billionaire.rank.trim(),
-                                    style = MaterialTheme.typography.body2,
-                                    color = JetsnackTheme.colors.textHelp,
-                                    textAlign = TextAlign.Start
-                                )
-                            }
+                        Text(
+                            text = billionaire.rank.trim(),
+                            style = MaterialTheme.typography.body2,
+                            color = JetsnackTheme.colors.textHelp,
+                            textAlign = TextAlign.Start
+                        )
+                    }
 
-                            Spacer(modifier = Modifier.height(8.dp))
-                            }
-                Column (modifier = Modifier
-                    .padding(end =2.dp)
-                    .fillMaxWidth(0.5f)
+                    Spacer(modifier = Modifier.height(8.dp))
+                }
+                Column(
+                    modifier = Modifier
+                        .padding(end = 2.dp)
+                        .fillMaxWidth(0.5f)
 
                 ) {
                     Row {
@@ -268,41 +249,43 @@ private fun billionaireItem(
                     }
 
 
-            }
+                }
                 Spacer(modifier = Modifier.height(8.dp))
             }
-            Row(modifier = Modifier,
-                horizontalArrangement = Arrangement.Start)
+            Row(
+                modifier = Modifier,
+                horizontalArrangement = Arrangement.Start
+            )
             {
-                        Column (
-                            modifier = Modifier
-                                .padding(start = 8.dp)
-                                .fillMaxWidth(0.5f)
-                            ,
-                                ) {
+                Column(
+                    modifier = Modifier
+                        .padding(start = 8.dp)
+                        .fillMaxWidth(0.5f),
+                ) {
 
-                            Row {
-                                Text(
-                                    text = stringResource(R.string.billionaires_net_worth) + ": ",
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis,
-                                    style = MaterialTheme.typography.body1,
-                                    color = JetsnackTheme.colors.textSecondary,
-                                    textAlign = TextAlign.Start
-                                )
+                    Row {
+                        Text(
+                            text = stringResource(R.string.billionaires_net_worth) + ": ",
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            style = MaterialTheme.typography.body1,
+                            color = JetsnackTheme.colors.textSecondary,
+                            textAlign = TextAlign.Start
+                        )
 
-                                Text(
-                                    text = netWorth,
-                                    style = MaterialTheme.typography.body2,
-                                    color = JetsnackTheme.colors.textHelp,
-                                    textAlign = TextAlign.Start
-                                )
-                            }
+                        Text(
+                            text = netWorth,
+                            style = MaterialTheme.typography.body2,
+                            color = JetsnackTheme.colors.textHelp,
+                            textAlign = TextAlign.Start
+                        )
+                    }
 
-                            Spacer(modifier = Modifier.height(8.dp))
-                            }
-                Column (modifier = Modifier
-                    .padding(end =2.dp)
+                    Spacer(modifier = Modifier.height(8.dp))
+                }
+                Column(
+                    modifier = Modifier
+                        .padding(end = 2.dp)
                 ) {
                     Row {
                         Text(
@@ -322,13 +305,15 @@ private fun billionaireItem(
                             maxLines = 2
                         )
                     }
-                            }
+                }
 
             }
-            Row (Modifier
-                .align(Alignment.Start)
-                .padding(start = 8.dp),
-                horizontalArrangement = Arrangement.Start){
+            Row(
+                Modifier
+                    .align(Alignment.Start)
+                    .padding(start = 8.dp),
+                horizontalArrangement = Arrangement.Start
+            ) {
                 Text(
                     text = stringResource(R.string.billionaires_source) + ": ",
                     maxLines = 1,

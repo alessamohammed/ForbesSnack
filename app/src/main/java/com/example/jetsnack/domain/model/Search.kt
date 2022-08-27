@@ -17,10 +17,6 @@
 package com.example.jetsnack.domain.model
 
 import androidx.compose.runtime.Immutable
-import com.example.jetsnack.domain.model.request.Billionaire
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.withContext
 
 /**
  * A fake repo for searching.
