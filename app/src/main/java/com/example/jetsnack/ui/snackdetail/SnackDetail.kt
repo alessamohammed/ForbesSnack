@@ -259,7 +259,7 @@ private fun Body(
                     Spacer(Modifier.height(16.dp))
                     JetsnackDivider()
 
-                    if(billionaire.financialAssets.isNotEmpty())
+                    if(billionaire.financialAssets.isNullOrEmpty())
                     TableScreen(billionaire.financialAssets)
                     Spacer(
                         modifier = Modifier
