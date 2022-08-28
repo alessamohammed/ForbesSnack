@@ -1,6 +1,6 @@
 # Forbes400 
 
-Forbes400 is a simple info app built with [Jetpack Compose][compose].
+Forbes400 is a simple top billionaires info app built with [Jetpack Compose][compose].
 
 
 ## Features
