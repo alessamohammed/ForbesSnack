@@ -96,6 +96,7 @@
     <string name="about">About</string>
     <string name="asset_name">Asset Name</string>
     <string name="shares_worth_usd">Shares Worth $</string>
+    <string name="suggestions">Suggestions</string>
 
 
 </resources>

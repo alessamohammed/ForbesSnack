@@ -6,10 +6,12 @@ import androidx.lifecycle.viewModelScope
 import com.example.jetsnack.data.repository.BillionaireRepository
 import com.example.jetsnack.domain.model.BillionaireRepo
 import com.example.jetsnack.domain.model.Filter
+import com.example.jetsnack.domain.model.SearchSuggestionGroup
 import com.example.jetsnack.domain.model.request.Billionaire
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,6 +23,12 @@ class HomeViewModel @Inject constructor(
     private val _billionaireState = MutableStateFlow(emptyList<Billionaire>())
     val billionaireState: StateFlow<List<Billionaire>>
         get() = _billionaireState
+
+    // billionaire results
+    private val _billionaireResults = MutableStateFlow(emptyList<Billionaire>())
+    val billionaireResults: StateFlow<List<Billionaire>>
+        get() = _billionaireResults
+
 
     val filters = BillionaireRepo.getIndustryFilters()
     private val _filterState = MutableStateFlow(filters)
@@ -37,6 +45,11 @@ class HomeViewModel @Inject constructor(
         _sortState.value = sort
         changeFilterSort(sort)
     }
+
+    // SearchSuggestionGroup
+    private val _searchSuggestion = MutableStateFlow(emptyList<String>())
+    val searchSuggestion: StateFlow<List<String>>
+        get() = _searchSuggestion
 
     init {
 
@@ -69,8 +82,20 @@ class HomeViewModel @Inject constructor(
         }
 
     }
+    // search
+    fun search(search: String) {
+        _billionaireResults.value = billionaireState.value.filter {
+            it.personName.contains(search, true)
 
-    fun changeFilterSort(filter: String) {
+        }
+        val topMatchBillionaire = if (_billionaireResults.value.isNotEmpty())
+            _billionaireResults.value[0].personName else ""
+        if (!_searchSuggestion.value.contains(topMatchBillionaire)) {
+                _searchSuggestion.value = (_searchSuggestion.value + topMatchBillionaire!!)
+            }
+    }
+
+    private fun changeFilterSort(filter: String) {
         deselectFilters()
         getBillionairesByFilter(filter)
     }

@@ -17,6 +17,7 @@
 package com.example.jetsnack.ui.home.search
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -72,10 +73,21 @@ private fun SearchResult(
     showDivider: Boolean,
     modifier: Modifier = Modifier
 ) {
+    val netWorth: String
+    if (billionaire.finalWorth > 1000) {
+        netWorth = String.format("%.2f", billionaire.finalWorth / 1000) + " B"
+    } else
+        netWorth = String.format("%.2f", billionaire.finalWorth) + " M"
+
+    val squareImage = if (billionaire.squareImage?.startsWith("http") == true) {
+        billionaire.squareImage
+    } else {
+        "https:${billionaire.squareImage}"
+    }
     ConstraintLayout(
         modifier = modifier
             .fillMaxWidth()
-//            .clickable { onSnackClick(billionaire) }
+            .clickable { onSnackClick(billionaire.rank.toLong()) }
             .padding(horizontal = 24.dp)
     ) {
         val (divider, image, name, tag, priceSpacer, price, add) = createRefs()
@@ -89,7 +101,7 @@ private fun SearchResult(
             )
         }
         SnackImage(
-            imageUrl = billionaire.squareImage,
+            imageUrl = squareImage,
             contentDescription = null,
             modifier = Modifier
                 .size(100.dp)
@@ -104,7 +116,7 @@ private fun SearchResult(
                 }
         )
         Text(
-            text = billionaire.name,
+            text = billionaire.personName,
             style = MaterialTheme.typography.subtitle1,
             color = JetsnackTheme.colors.textSecondary,
             modifier = Modifier.constrainAs(name) {
@@ -118,7 +130,7 @@ private fun SearchResult(
             }
         )
         Text(
-            text = billionaire.name,
+            text = netWorth,
             style = MaterialTheme.typography.body1,
             color = JetsnackTheme.colors.textHelp,
             modifier = Modifier.constrainAs(tag) {
@@ -139,7 +151,7 @@ private fun SearchResult(
                 }
         )
         Text(
-            text = "csc",
+            text = billionaire.industries[0],
             style = MaterialTheme.typography.subtitle1,
             color = JetsnackTheme.colors.textPrimary,
             modifier = Modifier.constrainAs(price) {
@@ -152,22 +164,6 @@ private fun SearchResult(
                 )
             }
         )
-        JetsnackButton(
-            onClick = { /* todo */ },
-            shape = CircleShape,
-            contentPadding = PaddingValues(0.dp),
-            modifier = Modifier
-                .size(36.dp)
-                .constrainAs(add) {
-                    linkTo(top = parent.top, bottom = parent.bottom)
-                    end.linkTo(parent.end)
-                }
-        ) {
-            Icon(
-                imageVector = Icons.Outlined.Add,
-                contentDescription = stringResource(R.string.label_add)
-            )
-        }
     }
 }
 

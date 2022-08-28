@@ -17,6 +17,7 @@
 package com.example.jetsnack.ui.home.search
 
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.*
@@ -35,6 +36,7 @@ import com.example.jetsnack.domain.model.*
 import com.example.jetsnack.domain.model.request.Billionaire
 import com.example.jetsnack.ui.components.JetsnackDivider
 import com.example.jetsnack.ui.components.JetsnackSurface
+import com.example.jetsnack.ui.home.HomeViewModel
 import com.example.jetsnack.ui.theme.JetsnackTheme
 import com.example.jetsnack.ui.utils.mirroringBackIcon
 
@@ -42,14 +44,23 @@ import com.example.jetsnack.ui.utils.mirroringBackIcon
 fun Search(
     onSnackClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
-    state: SearchState = rememberSearchState()
+    homeViewModel: HomeViewModel
 ) {
+    val billionaireResult = homeViewModel.billionaireResults.collectAsState()
+    val searchSuggestion = homeViewModel.searchSuggestion.collectAsState()
+    val state: SearchState = rememberSearchState(suggestions = searchSuggestion.value,searchResults=billionaireResult.value)
     JetsnackSurface(modifier = modifier.fillMaxSize()) {
         Column {
             Spacer(modifier = Modifier.statusBarsPadding())
             SearchBar(
                 query = state.query,
-                onQueryChange = { state.query = it },
+                onQueryChange = {
+                    state.query = it
+                    homeViewModel.search(it.text)
+                    state.searchResults = billionaireResult.value
+                    state.suggestions = searchSuggestion.value
+                    Log.d("suggestions",state.suggestions.toString())
+                                },
                 searchFocused = state.focused,
                 onSearchFocusChange = { state.focused = it },
                 onClearQuery = { state.query = TextFieldValue("") },
@@ -63,7 +74,6 @@ fun Search(
                 state.searching = false
             }
             when (state.searchDisplay) {
-                SearchDisplay.Categories -> SearchCategories(state.categories)
                 SearchDisplay.Suggestions -> SearchSuggestions(
                     suggestions = state.suggestions,
                     onSuggestionSelect = { suggestion -> state.query = TextFieldValue(suggestion) }
@@ -80,7 +90,7 @@ fun Search(
 }
 
 enum class SearchDisplay {
-    Categories, Suggestions, Results, NoResults
+  Suggestions, Results, NoResults
 }
 
 @Composable
@@ -89,9 +99,9 @@ private fun rememberSearchState(
     focused: Boolean = false,
     searching: Boolean = false,
     categories: List<SearchCategoryCollection> = SearchRepo.getCategories(),
-    suggestions: List<SearchSuggestionGroup> = SearchRepo.getSuggestions(),
+    suggestions: List<String>,
     filters: List<Filter> = BillionaireRepo.getIndustryFilters(),
-    searchResults: List<Billionaire> = emptyList()
+    searchResults: List<Billionaire>
 ): SearchState {
     return remember {
         SearchState(
@@ -112,7 +122,7 @@ class SearchState(
     focused: Boolean,
     searching: Boolean,
     categories: List<SearchCategoryCollection>,
-    suggestions: List<SearchSuggestionGroup>,
+    suggestions: List<String>,
     filters: List<Filter>,
     searchResults: List<Billionaire>
 ) {
@@ -125,7 +135,7 @@ class SearchState(
     var searchResults by mutableStateOf(searchResults)
     val searchDisplay: SearchDisplay
         get() = when {
-            !focused && query.text.isEmpty() -> SearchDisplay.Categories
+            !focused && query.text.isEmpty() -> SearchDisplay.Suggestions
             focused && query.text.isEmpty() -> SearchDisplay.Suggestions
             searchResults.isEmpty() -> SearchDisplay.NoResults
             else -> SearchDisplay.Results

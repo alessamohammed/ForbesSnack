@@ -26,8 +26,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.jetsnack.R
 import com.example.jetsnack.domain.model.SearchRepo
 import com.example.jetsnack.domain.model.SearchSuggestionGroup
 import com.example.jetsnack.ui.components.JetsnackSurface
@@ -35,15 +37,16 @@ import com.example.jetsnack.ui.theme.JetsnackTheme
 
 @Composable
 fun SearchSuggestions(
-    suggestions: List<SearchSuggestionGroup>,
+    suggestions: List<String>,
     onSuggestionSelect: (String) -> Unit
 ) {
     LazyColumn {
-        suggestions.forEach { suggestionGroup ->
-            item {
-                SuggestionHeader(suggestionGroup.name)
-            }
-            items(suggestionGroup.suggestions) { suggestion ->
+        item {
+            SuggestionHeader(stringResource(R.string.suggestions))
+        }
+
+
+            items(suggestions) { suggestion ->
                 Suggestion(
                     suggestion = suggestion,
                     onSuggestionSelect = onSuggestionSelect,
@@ -54,7 +57,7 @@ fun SearchSuggestions(
                 Spacer(Modifier.height(4.dp))
             }
         }
-    }
+
 }
 
 @Composable
@@ -88,19 +91,4 @@ private fun Suggestion(
             .padding(start = 24.dp)
             .wrapContentSize(Alignment.CenterStart)
     )
-}
-
-@Preview("default")
-@Preview("dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Preview("large font", fontScale = 2f)
-@Composable
-fun PreviewSuggestions() {
-    JetsnackTheme {
-        JetsnackSurface {
-            SearchSuggestions(
-                suggestions = SearchRepo.getSuggestions(),
-                onSuggestionSelect = { }
-            )
-        }
-    }
 }
