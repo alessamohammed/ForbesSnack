@@ -50,9 +50,9 @@ private val HighlightCardPadding = 16.dp
 
 
 @Composable
-fun SnackCollection(
+fun BillionaireCollection(
     billionaireList: List<com.example.jetsnack.domain.model.request.Billionaire>,
-    onSnackClick: (Long) -> Unit,
+    onItemClick: (Long) -> Unit,
     index: Int = 0
 ) {
     Row(
@@ -71,20 +71,8 @@ fun SnackCollection(
                 .weight(1f)
                 .wrapContentWidth(Alignment.Start)
         )
-//            IconButton(
-//                onClick = { /* todo */ }
-//            ) {
-//                Icon(
-//                    imageVector = mirroringIcon(
-//                        ltrIcon = Icons.Outlined.ArrowForward,
-//                        rtlIcon = Icons.Outlined.ArrowBack
-//                    ),
-//                    tint = JetsnackTheme.colors.brand,
-//                    contentDescription = null
-//                )
-//            }
     }
-    HighlightedSnacks(index, billionaireList, onSnackClick)
+    HighlightedSnacks(index, billionaireList, onItemClick)
 
 }
 

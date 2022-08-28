@@ -97,16 +97,17 @@ fun FilterChip(
     id: Int = 0,
     homeViewModel: HomeViewModel
 ) {
+    val (selected) = filter.enabled
     val backgroundColor by animateColorAsState(
-        if (isPressed[id].value) JetsnackTheme.colors.brandSecondary else JetsnackTheme.colors.uiBackground
+        if (selected) JetsnackTheme.colors.brandSecondary else JetsnackTheme.colors.uiBackground
     )
     val border = Modifier.fadeInDiagonalGradientBorder(
-        showBorder = !isPressed[id].value,
+        showBorder = !selected,
         colors = JetsnackTheme.colors.interactiveSecondary,
         shape = shape
     )
     val textColor by animateColorAsState(
-        if (isPressed[id].value) Color.Black else JetsnackTheme.colors.textSecondary
+        if (selected) Color.Black else JetsnackTheme.colors.textSecondary
     )
     JetsnackSurface(
         modifier = modifier.height(28.dp),

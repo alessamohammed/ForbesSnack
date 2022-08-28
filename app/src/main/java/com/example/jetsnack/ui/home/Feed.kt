@@ -16,19 +16,17 @@
 
 package com.example.jetsnack.ui.home
 
-import android.content.res.Configuration
 import androidx.compose.animation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jetsnack.domain.model.request.Billionaire
 import com.example.jetsnack.ui.components.FilterBar
 import com.example.jetsnack.ui.components.JetsnackSurface
-import com.example.jetsnack.ui.components.SnackCollection
+import com.example.jetsnack.ui.components.BillionaireCollection
 
 
 @Composable
@@ -81,9 +79,9 @@ private fun SnackCollectionList(
             )
             FilterBar(onShowFilters = { filtersVisible = true }, homeViewModel = homeViewModel)
 
-            SnackCollection(
+            BillionaireCollection(
                 billionaireList = billionaireList,
-                onSnackClick = onSnackClick,
+                onItemClick = onSnackClick,
                 index = 0
             )
         }
@@ -102,12 +100,4 @@ private fun SnackCollectionList(
             homeViewModel = homeViewModel
         )
     }
-}
-
-@Preview("default")
-@Preview("dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Preview("large font", fontScale = 2f)
-@Composable
-fun HomePreview() {
-
 }
